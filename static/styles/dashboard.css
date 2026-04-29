@@ -1,0 +1,511 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   dashboard.css — Vitruka PS Pressure Optimiser
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Global ──────────────────────────────────────────────────────────────── */
+html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"],
+.stApp, [data-testid="stMain"], [data-testid="stMainBlockContainer"] {
+    background-color: #0d1117 !important;
+    color: #e6edf3 !important;
+    font-family: monospace !important;
+}
+[data-testid="stSidebar"], [data-testid="collapsedControl"] {
+    background-color: #161b22 !important;
+}
+hr { border-color: #21262d !important; margin: 8px 0 !important; }
+.thin-divider { border-top: 1px solid #21262d; margin: 3px 0 5px 0; }
+
+[data-testid="stVerticalBlock"] > [data-testid="stVerticalBlockBorderWrapper"],
+[data-testid="stVerticalBlock"] > div { gap: 0 !important; }
+.stElementContainer { margin-bottom: 2px !important; }
+[data-testid="stHorizontalBlock"] { gap: 4px !important; align-items: center !important; }
+
+p, label, .stMarkdown p, [data-testid="stCaptionContainer"] p,
+[data-testid="stText"], .stCaption {
+    color: #c9d1d9 !important; font-family: monospace !important;
+    font-size: 14px !important;
+}
+h1,h2,h3,h4,h5,h6, .stMarkdown h1,.stMarkdown h2,.stMarkdown h3 {
+    color: #e6edf3 !important; font-family: monospace !important;
+}
+[data-testid="stDataFrame"], [data-testid="stDataEditor"] {
+    background-color: #161b22 !important;
+}
+header[data-testid="stHeader"] { display: none !important; }
+footer, [data-testid="stBottom"], .stBottom,
+[data-testid="stStatusWidget"] { display: none !important; }
+
+/* ── File uploader — transparent, no extra backgrounds ───────────────────── */
+[data-testid="stFileUploader"] {
+    background: transparent !important; border: none !important;
+    margin-bottom: 2px !important;
+}
+[data-testid="stFileUploaderDropzone"] {
+    background: transparent !important; border: none !important;
+    padding: 0 !important; min-height: unset !important;
+    display: flex !important; justify-content: flex-start !important;
+    align-items: center !important;
+}
+[data-testid="stFileUploaderDropzoneInstructions"] { display: none !important; }
+
+[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"] {
+    font-size: 0 !important;
+    background: transparent !important;
+    border: 2px solid #388bfd !important;
+    border-radius: 6px !important;
+    color: transparent !important;
+    padding: 12px 28px !important;
+    cursor: pointer !important;
+    position: relative !important;
+    min-width: 160px !important;
+    min-height: 48px !important;
+}
+[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"]::before {
+    content: "Upload CSV";
+    font-size: 16px; font-family: monospace; font-weight: 700;
+    color: #388bfd;
+    position: absolute; left: 50%; transform: translateX(-50%);
+    white-space: nowrap;
+}
+/* Uploaded file info — no extra background box */
+[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] {
+    background: transparent !important;
+    border: none !important;
+}
+
+.upload-hint {
+    font-family: monospace; font-size: 14px; color: #a8b1ba;
+    line-height: 1.6; padding-top: 2px;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+button[kind="primary"], [data-testid="stBaseButton-primary"] {
+    font-family: monospace !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+}
+/* Active primary: green bg, BLACK text for contrast */
+[data-testid="stBaseButton-primary"]:not(:disabled):not([disabled]) {
+    background: #238636 !important;
+    color: #000000 !important;
+    border-color: #2ea043 !important;
+}
+[data-testid="stBaseButton-primary"]:not(:disabled):not([disabled]) p {
+    color: #000000 !important;
+}
+[data-testid="stBaseButton-primary"]:disabled,
+[data-testid="stBaseButton-primary"][disabled] {
+    color: #484f58 !important;
+}
+
+[data-testid="stBaseButton-secondary"],
+[data-testid="stDownloadButton"] button {
+    font-family: monospace !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+[data-testid="stAlert"] { font-family: monospace !important; font-size: 14px !important; }
+div[data-testid="stProgressBar"] > div { background: #1a7f37; }
+
+/* (legacy btn wraps removed — topbar handles download now) */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VIEW 1 — INPUT
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-testid="stMainBlockContainer"] {
+    padding-top: 58px !important;
+    padding-bottom: 2px !important;
+    padding-left: 1rem !important;
+    padding-right: 0.25rem !important;
+}
+
+.section-heading {
+    font-family: monospace; font-size: 20px; font-weight: 700;
+    color: #e6edf3; margin: 0 0 4px 0; line-height: 1.2;
+}
+.section-caption {
+    font-family: monospace; font-size: 15px; font-weight: 600;
+    color: #c9d1d9;
+    background: transparent;
+    border: none; border-left: 3px solid #388bfd;
+    padding: 6px 12px; margin: 0 0 6px 0; line-height: 1.4;
+    display: block;
+}
+.alt-entry-label {
+    font-family: monospace; font-size: 13px; font-weight: 700;
+    color: #e3b341;
+    background: transparent;
+    border: 1px solid #4a3a10; border-radius: 4px;
+    padding: 4px 10px; letter-spacing: 0.8px;
+    text-transform: uppercase; margin: 2px 0 3px 0; display: block;
+}
+
+.fixed-station-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 999; background: #0d1117;
+    padding: 10px 28px 6px;
+    border-bottom: 1px solid #21262d;
+}
+.station-header {
+    font-family: monospace; font-size: 24px; font-weight: 700;
+    color: #e6edf3; letter-spacing: 0.5px;
+    padding-bottom: 2px; margin-top: 0;
+}
+.station-subtitle {
+    font-family: monospace; font-size: 15px; font-weight: 400;
+    color: #8b949e; letter-spacing: 0.3px; margin-bottom: 0;
+}
+
+.input-warning {
+    font-family: monospace; font-size: 15px; font-weight: 600;
+    color: #e3b341; text-align: center;
+    padding: 8px 12px; margin-bottom: 5px;
+    border: 1px solid #4a3a10; border-radius: 6px;
+    background: transparent;
+}
+.input-ready {
+    font-family: monospace; font-size: 15px; font-weight: 700;
+    color: #3fb950; text-align: center;
+    padding: 8px 12px; margin-bottom: 5px;
+    border: 1px solid #1a7f37; border-radius: 6px;
+    background: transparent;
+}
+.csv-loaded-notice {
+    font-family: monospace; font-size: 15px; font-weight: 700;
+    color: #3fb950; text-align: center;
+    padding: 12px 16px; margin: 6px 0;
+    border: 2px solid #238636; border-radius: 8px;
+    background: rgba(35, 134, 54, 0.18);
+}
+
+/* Section backgrounds — via CSS column targeting on main input row only.
+   The button row uses a DIFFERENT column ratio so it won't match. */
+[data-testid="stMainBlockContainer"]
+    [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] .section-heading)
+    > [data-testid="stColumn"]:first-child {
+    background: rgba(20, 60, 120, 0.45) !important;
+    border: 1px solid rgba(56, 139, 253, 0.35) !important;
+    border-radius: 10px !important;
+    padding: 12px 10px !important;
+}
+[data-testid="stMainBlockContainer"]
+    [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] .section-heading)
+    > [data-testid="stColumn"]:last-child {
+    background: rgba(100, 65, 10, 0.45) !important;
+    border: 1px solid rgba(210, 153, 34, 0.35) !important;
+    border-radius: 10px !important;
+    padding: 12px 10px !important;
+}
+/* Nested inner columns stay transparent */
+[data-testid="stColumn"] [data-testid="stColumn"] {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VIEW 2 — PROGRESS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.progress-header {
+    font-family: monospace; font-size: 16px; font-weight: 700;
+    color: #e6edf3; letter-spacing: 3px;
+    text-transform: uppercase; text-align: center;
+    margin: -10px 0 2px 0;
+}
+.progress-step {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 8px 18px; margin: 0 auto 4px auto;
+    max-width: 860px; width: 90%;
+    border: 1px solid #21262d; border-radius: 6px;
+    background: rgba(22,27,34,0.8);
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.progress-step-pending { border-color: #21262d; opacity: 0.6; }
+.progress-step-running {
+    border-color: #d29922 !important;
+    background: rgba(50,40,10,0.6) !important;
+    box-shadow: 0 0 16px rgba(210,153,34,0.35);
+    transform: scale(1.015); opacity: 1;
+}
+.progress-step-done {
+    border-color: #3fb950 !important;
+    background: rgba(20,50,25,0.5) !important;
+    opacity: 1;
+}
+
+div[data-testid="stProgress"] {
+    max-width: 860px; margin: 4px auto 0 auto;
+}
+div[data-testid="stProgress"] + .stElementContainer,
+div[data-testid="stProgress"] ~ .stElementContainer {
+    max-width: 860px;
+    margin-left: auto !important; margin-right: auto !important;
+    text-align: center;
+    padding-bottom: 16px !important;
+}
+div[data-testid="stProgress"] ~ .stElementContainer p,
+div[data-testid="stProgress"] ~ .stElementContainer div {
+    text-align: center !important;
+}
+
+/* Hide stale page-1 widgets that bleed through during progress view.
+   When .progress-header exists, any leftover input-view elements must vanish. */
+[data-testid="stMainBlockContainer"]:has(.progress-header) .section-heading,
+[data-testid="stMainBlockContainer"]:has(.progress-header) .section-caption,
+[data-testid="stMainBlockContainer"]:has(.progress-header) .upload-hint,
+[data-testid="stMainBlockContainer"]:has(.progress-header) .csv-loaded-notice,
+[data-testid="stMainBlockContainer"]:has(.progress-header) .alt-entry-label,
+[data-testid="stMainBlockContainer"]:has(.progress-header) .input-warning,
+[data-testid="stMainBlockContainer"]:has(.progress-header) .input-ready,
+[data-testid="stMainBlockContainer"]:has(.progress-header) [data-testid="stFileUploader"],
+[data-testid="stMainBlockContainer"]:has(.progress-header) [data-testid="stDataEditor"],
+[data-testid="stMainBlockContainer"]:has(.progress-header) [data-testid="stDataFrame"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important; overflow: hidden !important;
+    margin: 0 !important; padding: 0 !important;
+}
+/* Also hide entire input columns that contain section-heading */
+[data-testid="stMainBlockContainer"]:has(.progress-header)
+    > [data-testid="stVerticalBlock"]
+    > [data-testid="stLayoutWrapper"]:has(.section-heading) {
+    display: none !important;
+}
+
+.progress-step-icon { display: none; }
+.progress-step-body { flex: 1; min-width: 0; }
+.progress-step-title {
+    font-family: monospace; font-size: 17px; font-weight: 700;
+    color: #e6edf3; margin-bottom: 3px;
+}
+.progress-step-desc {
+    font-family: monospace; font-size: 14px; color: #c9d1d9; line-height: 1.4;
+}
+.step-bullets { margin: 2px 0 0 0; padding-left: 18px; list-style: disc; }
+.step-bullets li {
+    font-family: monospace; font-size: 14px; color: #c9d1d9;
+    line-height: 1.5; margin-bottom: 1px;
+}
+.progress-step-status {
+    font-family: monospace; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.8px; flex-shrink: 0; text-align: right;
+    min-width: 70px; padding-top: 2px;
+}
+.step-detail {
+    font-family: monospace; font-size: 12px; color: #58a6ff;
+    margin-top: 4px; padding: 3px 8px;
+    background: rgba(88,166,255,0.08); border-radius: 4px;
+    display: inline-block;
+}
+
+.step-indicator {
+    flex-shrink: 0; width: 28px; height: 28px;
+    border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; margin-top: 2px;
+}
+.step-indicator-pending { border: 2px solid #484f58; color: #484f58; font-size: 12px; }
+.step-indicator-running {
+    border: 3px solid #d29922; border-top-color: transparent;
+    animation: spin-indicator 1s linear infinite;
+}
+.step-indicator-done { background: #238636; color: #fff; border: 2px solid #3fb950; }
+@keyframes spin-indicator { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SHARED TOP-BAR — stepper navigation (all views)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Topbar — tight spacing via gap override on the columns row ─────────── */
+.topbar-flex { display: none !important; }
+
+/* The horizontal block that contains the step columns: zero gap, tight */
+[data-testid="stHorizontalBlock"]:has([class*="tb-"]) {
+    gap: 0 !important;
+    margin-bottom: 0 !important;
+}
+/* Columns inside topbar: no internal padding */
+[data-testid="stHorizontalBlock"]:has([class*="tb-"]) [data-testid="stColumn"] {
+    padding: 0 !important;
+}
+[data-testid="stHorizontalBlock"]:has([class*="tb-"]) [data-testid="stColumn"] > [data-testid="stVerticalBlock"] {
+    gap: 0 !important;
+    padding: 0 !important;
+}
+[data-testid="stHorizontalBlock"]:has([class*="tb-"]) .stElementContainer {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+/* Arrow columns: shrink to content */
+.stepper-arrow-inline {
+    font-family: monospace; font-size: 11px; color: #484f58;
+    display: flex !important; align-items: center !important;
+    justify-content: center !important;
+    padding: 0 2px !important; min-height: 32px;
+    margin-top: -6px !important;
+}
+
+/* --- Filled step: green bg, clickable --- */
+.stElementContainer:has(.tb-filled) + .stElementContainer [data-testid="stBaseButton-secondary"] {
+    background: #238636 !important;
+    border: 2px solid #3fb950 !important;
+    color: #ffffff !important;
+    font-size: 15px !important; font-weight: 700 !important;
+    font-family: monospace !important;
+    border-radius: 20px !important;
+    cursor: pointer !important;
+}
+.stElementContainer:has(.tb-filled) + .stElementContainer [data-testid="stBaseButton-secondary"] p {
+    color: #ffffff !important; font-size: 15px !important; font-weight: 700 !important;
+}
+
+/* --- Filled-locked: green, NOT clickable --- */
+.stElementContainer:has(.tb-filled-locked) + .stElementContainer [data-testid="stBaseButton-secondary"] {
+    background: #238636 !important;
+    border: 2px solid #3fb950 !important;
+    color: #ffffff !important;
+    font-size: 15px !important; font-weight: 700 !important;
+    font-family: monospace !important;
+    border-radius: 20px !important;
+    opacity: 0.6 !important;
+}
+.stElementContainer:has(.tb-filled-locked) + .stElementContainer [data-testid="stBaseButton-secondary"] p {
+    color: #ffffff !important; font-size: 15px !important; font-weight: 700 !important;
+}
+
+/* --- Current step: amber --- */
+.stElementContainer:has(.tb-current) + .stElementContainer [data-testid="stBaseButton-secondary"] {
+    background: rgba(210,153,34,0.2) !important;
+    border: 2px solid #d29922 !important;
+    color: #e3b341 !important;
+    font-size: 15px !important; font-weight: 700 !important;
+    font-family: monospace !important;
+    border-radius: 20px !important;
+}
+.stElementContainer:has(.tb-current) + .stElementContainer [data-testid="stBaseButton-secondary"] p {
+    color: #e3b341 !important; font-size: 15px !important; font-weight: 700 !important;
+}
+
+/* --- Empty step: dim grey --- */
+.stElementContainer:has(.tb-empty) + .stElementContainer [data-testid="stBaseButton-secondary"] {
+    background: #161b22 !important;
+    border: 1px solid #30363d !important;
+    color: #484f58 !important;
+    font-size: 15px !important; font-weight: 600 !important;
+    font-family: monospace !important;
+    border-radius: 20px !important;
+    opacity: 0.55 !important;
+}
+.stElementContainer:has(.tb-empty) + .stElementContainer [data-testid="stBaseButton-secondary"] p {
+    color: #484f58 !important; font-size: 15px !important; font-weight: 600 !important;
+}
+
+/* --- Download button — absolute right edge, scrolls with page --- */
+.dl-btn-absolute-wrap { display: none !important; }
+.stElementContainer:has(.dl-btn-absolute-wrap) { display: none !important; }
+/* Make main container the positioning anchor */
+[data-testid="stMainBlockContainer"] { position: relative !important; }
+/* Target ONLY by st-key class — stable across all reruns */
+.stElementContainer.st-key-dl_csv_btn {
+    position: absolute !important;
+    right: 0.25rem !important;
+    top: 115px !important;
+    width: auto !important;
+    z-index: 10;
+    margin: 0 !important;
+}
+
+[data-testid="stDownloadButton"] button {
+    background: rgba(56,139,253,0.1) !important;
+    border: 2px solid #388bfd !important;
+    color: #58a6ff !important;
+    font-size: 13px !important; font-weight: 700 !important;
+    font-family: monospace !important;
+    border-radius: 6px !important;
+    white-space: nowrap !important;
+}
+[data-testid="stDownloadButton"] button p {
+    color: #58a6ff !important; font-size: 13px !important; font-weight: 700 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VIEW 3 — RESULTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Side metrics panel (beside chart) ───────────────────────────────────── */
+.side-metrics {
+    display: flex; flex-direction: column; gap: 5px;
+    padding: 4px 0 0 8px; font-family: monospace;
+}
+.side-metric-card {
+    background: rgba(22,27,34,0.8);
+    border: 1px solid #21262d; border-radius: 6px;
+    padding: 5px 8px; text-align: center;
+}
+.side-metric-label {
+    font-size: 11px; color: #8b949e;
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px;
+}
+.side-metric-value {
+    font-size: 17px; font-weight: 700; color: #e6edf3;
+}
+.side-metric-value.positive { color: #3fb950; }
+
+/* ── Pressure map ────────────────────────────────────────────────────────── */
+
+.map-section-header {
+    font-family: monospace; font-size: 22px; font-weight: 700;
+    color: #e6edf3; margin-bottom: 4px;
+}
+
+/* Horizontal info bar — outlet pressure left, legend right */
+.map-info-bar {
+    display: flex; align-items: center; gap: 20px;
+    font-family: monospace;
+    padding: 8px 16px; margin-bottom: 4px;
+    background: rgba(22,27,34,0.8);
+    border: 1px solid #21262d; border-radius: 6px;
+}
+.map-info-bar-pressure {
+    display: flex; align-items: center; gap: 12px;
+    flex-shrink: 0;
+}
+.map-info-bar-label {
+    font-size: 14px; font-weight: 700; color: #8b949e;
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+.map-info-bar-hour {
+    font-size: 16px; font-weight: 600; color: #58a6ff;
+}
+.map-info-bar-value {
+    font-size: 22px; font-weight: 700; color: #3fb950;
+}
+.map-info-bar-legend {
+    display: flex; align-items: center; gap: 20px;
+    margin-left: auto;
+}
+.legend-h-item {
+    display: flex; align-items: center; gap: 8px;
+}
+.legend-h-dot {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+}
+.legend-h-dot.dot-red { background: #f85149; }
+.legend-h-dot.dot-green { background: #3fb950; }
+.legend-h-dot.dot-yellow { background: #d29922; }
+.legend-h-text {
+    font-size: 15px; font-weight: 600; color: #e6edf3; white-space: nowrap;
+}
+
+/* ── Page footer ─────────────────────────────────────────────────────────── */
+.page-footer {
+    font-family: monospace; font-size: 15px; font-weight: 600;
+    color: #8b949e; text-align: center;
+    padding: 10px 0 8px 0; margin-top: 6px;
+    border-top: 1px solid #21262d;
+    letter-spacing: 0.8px;
+}
+
+[data-testid="stSlider"] { padding-top: 4px !important; }

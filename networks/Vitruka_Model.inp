@@ -1,0 +1,855 @@
+[TITLE]
+
+
+[JUNCTIONS]
+;ID              	Elev        	Demand      	Pattern         
+ J31             	215.5       	0           	constant        	;
+ J27             	215         	0           	constant        	;
+ J26             	207.3       	0           	constant        	;
+ J24             	227.3       	0           	constant        	;
+ J22             	228.7       	0           	constant        	;
+ J186            	226         	0.01        	PATTERN         	;
+ J005            	223.9       	0.01        	PATTERN         	;
+ J3              	220.2       	0           	constant        	;
+ J4              	220.2       	0           	constant        	;
+ J2              	220.1       	0           	constant        	;
+ J001            	217.7       	0.194       	PATTERN         	;
+ J008            	224         	1.166       	PATTERN         	;
+ J006            	215.1       	0.01        	PATTERN         	;
+ J007            	221.1       	0.01        	PATTERN         	;
+ J002            	224.4       	0.01        	PATTERN         	;
+ J003            	224.1       	0.01        	PATTERN         	;
+ J004            	223.2       	0.01        	PATTERN         	;
+ J20             	220.1       	0           	constant        	;
+ J40             	220.7       	0           	constant        	;
+ J47             	225.9       	0           	constant        	;
+ J36             	224.3       	0           	constant        	;
+ J37             	223.7       	0           	constant        	;
+ J73             	224.1       	0           	constant        	;
+ J134            	213.2       	0.01        	PATTERN         	;
+ J140            	217.9       	0           	constant        	;
+ J5              	224.7       	0.01        	PATTERN         	;
+ J30             	224.5       	0           	constant        	;
+ J38             	223.9       	0           	constant        	;
+ J41             	223.3       	0.01        	PATTERN         	;
+ J44             	223.9       	0           	constant        	;
+ J7              	217.7       	0.01        	PATTERN         	;
+ J46             	217.8       	0.01        	PATTERN         	;
+ J50             	217.1       	0           	constant        	;
+ J100            	216.7       	0           	constant        	;
+ J129            	216.6       	0           	constant        	;
+ J135            	218.8       	0.01        	PATTERN         	;
+ J136            	217         	0.01        	PATTERN         	;
+ J141            	217         	0.01        	PATTERN         	;
+ J142            	213.7       	0.01        	PATTERN         	;
+ J143            	212.6       	0.01        	PATTERN         	;
+ J144            	219.6       	0.01        	PATTERN         	;
+ J138            	221.7       	0           	constant        	;
+ J145            	216.8       	0           	constant        	;
+ J146            	216.8       	0           	constant        	;
+ J147            	216.1       	0           	constant        	;
+ J148            	214.9       	0           	constant        	;
+ J150            	215.6       	0           	constant        	;
+ J139            	227.7       	0           	constant        	;
+ J151            	221.4       	0.01        	PATTERN         	;
+ J152            	222         	0           	constant        	;
+ J153            	219.7       	0.01        	PATTERN         	;
+ J155            	216.7       	0.194       	PATTERN         	;
+ J156            	214.1       	0           	constant        	;
+ J157            	216.3       	0           	constant        	;
+ J84             	220.4       	1.166       	PATTERN         	;
+ J85             	220.1       	0.777       	PATTERN         	;
+ J90             	217.2       	0.194       	PATTERN         	;
+ J91             	214.4       	0.35        	PATTERN         	;
+ J13             	213.8       	1.166       	PATTERN         	;
+ J14             	211.8       	0.777       	PATTERN         	;
+ J15             	210.7       	1.399       	PATTERN         	;
+ J74             	204.6       	0.194       	PATTERN         	;
+ J75             	224.9       	0.971       	PATTERN         	;
+ J76             	222.4       	0.971       	PATTERN         	;
+ J78             	221.9       	0.971       	PATTERN         	;
+ J69             	222.5       	0           	constant        	;
+ J70             	225.3       	0           	constant        	;
+ J79             	224.5       	0           	constant        	;
+ J80             	221.3       	0           	constant        	;
+ J81             	221         	0           	constant        	;
+ J82             	220.7       	0           	constant        	;
+ J83             	220.6       	0           	constant        	;
+ J86             	218         	0           	constant        	;
+ J87             	214.5       	0           	constant        	;
+ J88             	212.5       	0           	constant        	;
+ J89             	210.8       	0           	constant        	;
+ J93             	207.6       	0           	constant        	;
+ J94             	207.6       	0           	constant        	;
+ J71             	224.3       	1.166       	PATTERN         	;
+ J95             	225.7       	1.166       	PATTERN         	;
+ J96             	226.5       	1.554       	PATTERN         	;
+ J97             	221         	0           	constant        	;
+ J98             	223.4       	0           	constant        	;
+ J99             	225.7       	0           	constant        	;
+ J154            	223.8       	0           	constant        	;
+ J101            	223.3       	0           	constant        	;
+ J160            	224.5       	0           	constant        	;
+ J8              	227.6       	0.777       	PATTERN         	;
+ J9              	228.2       	0.777       	PATTERN         	;
+ J10             	226.9       	1.166       	PATTERN         	;
+ J11             	229.2       	2.914       	PATTERN         	;
+ J12             	228.4       	1.943       	PATTERN         	;
+ J39             	229.5       	0.777       	PATTERN         	;
+ J43             	226.9       	0.019       	PATTERN         	;
+ J48             	227.2       	0.777       	PATTERN         	;
+ J49             	226.6       	0.777       	PATTERN         	;
+ J51             	226.6       	1.166       	PATTERN         	;
+ J52             	224.3       	1.554       	PATTERN         	;
+ J53             	226.5       	1.554       	PATTERN         	;
+ J54             	225.7       	0.777       	PATTERN         	;
+ J55             	223         	2.448       	PATTERN         	;
+ J56             	218.7       	1.166       	PATTERN         	;
+ J57             	218.2       	0.777       	PATTERN         	;
+ J58             	217.6       	0.777       	PATTERN         	;
+ J59             	221.5       	1.166       	PATTERN         	;
+ J60             	218.9       	0           	constant        	;
+ J61             	218.6       	0           	constant        	;
+ J62             	219         	0           	constant        	;
+ J63             	217.7       	0           	constant        	;
+ J64             	226.8       	0.777       	PATTERN         	;
+ J65             	227.2       	0.777       	PATTERN         	;
+ J66             	229.1       	1.166       	PATTERN         	;
+ J67             	228         	1.166       	PATTERN         	;
+ J68             	226.9       	1.166       	PATTERN         	;
+ J72             	226.5       	0.699       	PATTERN         	;
+ J77             	228.8       	1.166       	PATTERN         	;
+ J102            	226.1       	0.389       	PATTERN         	;
+ J103            	225.9       	0.194       	PATTERN         	;
+ J104            	225.7       	0.486       	PATTERN         	;
+ J105            	226.5       	0.777       	PATTERN         	;
+ J107            	227.1       	0.777       	PATTERN         	;
+ J108            	220.9       	0           	constant        	;
+ J109            	224.4       	0           	constant        	;
+ J110            	225.7       	0           	constant        	;
+ J111            	220.6       	0           	constant        	;
+ J112            	223.8       	0           	constant        	;
+ J113            	226.3       	0           	constant        	;
+ J114            	226         	0           	constant        	;
+ J115            	227         	0           	constant        	;
+ J116            	226.3       	0           	constant        	;
+ J117            	222         	0           	constant        	;
+ J118            	226.1       	0           	constant        	;
+ J119            	227.2       	0           	constant        	;
+ J121            	228.8       	1.554       	PATTERN         	;
+ J106            	228.4       	0           	constant        	;
+ J122            	227.2       	0           	constant        	;
+ J123            	227.4       	0           	constant        	;
+ J124            	227.6       	0           	constant        	;
+ J125            	224.6       	0           	constant        	;
+ J126            	226         	0           	constant        	;
+ J127            	226.5       	0           	constant        	;
+ J128            	226.9       	0           	constant        	;
+ J130            	228         	0           	constant        	;
+ J131            	227         	0           	constant        	;
+ J132            	226.5       	0           	constant        	;
+ J133            	226.6       	0           	constant        	;
+ J161            	228.5       	0           	constant        	;
+ J163            	227.5       	0           	constant        	;
+ J164            	225.9       	0           	constant        	;
+ J165            	224.6       	0           	constant        	;
+ J167            	227.5       	0           	constant        	;
+ J168            	228.3       	0           	constant        	;
+ J169            	229.2       	0           	constant        	;
+ J172            	228.6       	0           	constant        	;
+ J173            	228.6       	0           	constant        	;
+ J174            	227         	0           	constant        	;
+ J175            	228.9       	0           	constant        	;
+ J176            	224.6       	0           	constant        	;
+ J166            	225.8       	0           	constant        	;
+ J177            	227.3       	0           	constant        	;
+ J178            	222.1       	0           	constant        	;
+ J179            	224.3       	0.777       	PATTERN         	;
+ J180            	226.4       	0.087       	PATTERN         	;
+ J181            	225.8       	0.01        	PATTERN         	;
+ J182            	225         	0.194       	PATTERN         	;
+ J183            	226.1       	1.943       	PATTERN         	;
+ J184            	226.6       	0.049       	PATTERN         	;
+ J185            	225.5       	0.01        	PATTERN         	;
+ J187            	226.4       	1.166       	PATTERN         	;
+ J188            	226.9       	0.389       	PATTERN         	;
+ J189            	226         	1.166       	PATTERN         	;
+ J190            	228.9       	0.777       	PATTERN         	;
+ J191            	228.3       	1.554       	PATTERN         	;
+ J192            	228.2       	1.554       	PATTERN         	;
+ J193            	227.6       	1.166       	PATTERN         	;
+ J194            	212.5       	0.777       	PATTERN         	;
+ J195            	211.7       	0.777       	PATTERN         	;
+ J196            	211         	2.332       	PATTERN         	;
+ J197            	211.3       	1.166       	PATTERN         	;
+ J198            	210         	0           	constant        	;
+ J199            	211.9       	0           	constant        	;
+ J200            	211.6       	0           	constant        	;
+ J201            	212.9       	0           	constant        	;
+ J202            	211.4       	0           	constant        	;
+ J203            	211.9       	0           	constant        	;
+ J204            	210.4       	0           	constant        	;
+ J205            	226.8       	0           	constant        	;
+ J206            	227.4       	0           	constant        	;
+ J207            	228.7       	0           	constant        	;
+ J208            	227.6       	0           	constant        	;
+ J209            	227.7       	0           	constant        	;
+ J210            	226         	0           	constant        	;
+ J211            	226.5       	0           	constant        	;
+ J212            	227         	0           	constant        	;
+ J213            	227         	0           	constant        	;
+ J214            	225.9       	0           	constant        	;
+ J215            	224.9       	0           	constant        	;
+ J217            	226.5       	0           	constant        	;
+ J219            	226.5       	0           	constant        	;
+ J216            	226.5       	0           	constant        	;
+ J220            	226.2       	0           	constant        	;
+ J221            	223.9       	0           	constant        	;
+ J222            	225.6       	0           	constant        	;
+ J92             	226         	0           	constant        	;
+ J6              	218         	0.01        	PATTERN         	;
+ J120            	219.9       	0.777       	PATTERN         	;
+ J149            	219.5       	0           	constant        	;
+ J16             	220.3       	0           	constant        	;
+ J17             	220.5       	0           	constant        	;
+ J18             	220.4       	0           	constant        	;
+ J19             	220.6       	0           	constant        	;
+ J21             	220.5       	0           	constant        	;
+ J1              	220.1       	0           	constant        	;
+ J23             	225.7       	0           	constant        	;
+ J25             	208.6       	0           	constant        	;
+ J28             	217.2       	0           	constant        	;
+ J29             	216.4       	0           	constant        	;
+
+[RESERVOIRS]
+;ID              	Head        	Pattern         
+ R1              	217.8       	                	;
+
+[TANKS]
+;ID              	Elevation   	InitLevel   	MinLevel    	MaxLevel    	Diameter    	MinVol      	VolCurve        	Overflow
+
+[PIPES]
+;ID              	Node1           	Node2           	Length      	Diameter    	Roughness   	MinorLoss   	Status
+ P161            	J215            	J176            	176.71      	150         	100         	0           	Open  	;
+ P96             	J29             	J31             	99.37       	150         	100         	0           	Open  	;
+ P71             	J86             	J31             	49.573065406	150         	100         	0           	Open  	;
+ P71_2           	J31             	J27             	22.898565981	150         	100         	0           	Open  	;
+ P57             	J157            	J29             	52.58       	150         	100         	0           	Open  	;
+ P44             	J28             	J63             	27.15       	150         	100         	0           	Open  	;
+ P43             	J27             	J28             	140.45      	150         	100         	0           	Open  	;
+ P71_1           	J27             	J87             	14.585725965	150         	100         	0           	Open  	;
+ P42_1           	J25             	J26             	200.72785684	150         	100         	0           	Open  	;
+ P42_2           	J26             	J94             	61.128981312	150         	100         	0           	Open  	;
+ P32             	J23             	J163            	115.95      	150         	100         	0           	Open  	;
+ P21             	J175            	J24             	50.550391472	150         	100         	0           	Open  	;
+ P21_1           	J24             	J23             	31.781488806	150         	100         	0           	Open  	;
+ P17             	J133            	J22             	223.13      	150         	100         	0           	Open  	;
+ P121            	J175            	J22             	26.753165378	150         	100         	0           	Open  	;
+ P121_1          	J22             	J167            	23.581885439	150         	100         	0           	Open  	;
+ P16             	J140            	J40             	173.54      	300         	100         	0           	Open  	;
+ P20             	J2              	J1              	2.24        	100         	100         	0           	Open  	;
+ P19             	J3              	J1              	2.17        	100         	100         	0           	Open  	;
+ P12             	J21             	R1              	13.73       	100         	100         	0           	Open  	;
+ P13             	J4              	J18             	1.39        	100         	100         	0           	Open  	;
+ P2              	J20             	J16             	1.29        	100         	100         	0           	Open  	;
+ P95             	J120            	J149            	34.11       	100         	100         	0           	Open  	;
+ P5              	J97             	J149            	56.022178225	150         	100         	0           	Open  	;
+ P5_1            	J149            	J60             	29.762569187	150         	100         	0           	Open  	;
+ P93             	J101            	J160            	64.63       	150         	100         	0           	Open  	;
+ P164            	J6              	J129            	18.88       	100         	100         	0           	Open  	;
+ P209            	J186            	J92             	22.61       	100         	100         	0           	Open  	;
+ P198            	J211            	J92             	49.204888529	150         	100         	0           	Open  	;
+ P198_1          	J92             	J210            	29.128262217	150         	100         	0           	Open  	;
+ P207            	J206            	J205            	51.85       	150         	100         	0           	Open  	;
+ P200            	J206            	J210            	95          	150         	100         	0           	Open  	;
+ P197            	J215            	J182            	46.87       	100         	100         	0           	Open  	;
+ P196            	J214            	J215            	27.29       	150         	100         	0           	Open  	;
+ P195            	J214            	J187            	14.72       	100         	100         	0           	Open  	;
+ P194            	J213            	J214            	63.71       	150         	100         	0           	Open  	;
+ P193            	J213            	J183            	44.42       	100         	100         	0           	Open  	;
+ P192            	J212            	J213            	15.9        	150         	100         	0           	Open  	;
+ P191            	J212            	J188            	10.38       	100         	100         	0           	Open  	;
+ P190            	J211            	J212            	57.45       	150         	100         	0           	Open  	;
+ P189            	J211            	J217            	44.6        	150         	100         	0           	Open  	;
+ P188            	J219            	J217            	24.78       	150         	100         	0           	Open  	;
+ P187            	J222            	J185            	17.79       	100         	100         	0           	Open  	;
+ P186            	J30             	J222            	29.4251797  	150         	100         	0           	Open  	;
+ P186_1          	J222            	J217            	17.957637568	150         	100         	0           	Open  	;
+ P183            	J181            	J216            	17.37       	100         	100         	0           	Open  	;
+ P157            	J127            	J216            	8.63        	150         	100         	0           	Open  	;
+ P156            	J127            	J220            	28.4        	150         	100         	0           	Open  	;
+ P155            	J220            	J180            	35.68       	100         	100         	0           	Open  	;
+ P154            	J221            	J220            	70.06       	150         	100         	0           	Open  	;
+ P153            	J221            	J179            	23.24       	100         	100         	0           	Open  	;
+ P152            	J178            	J221            	46.33       	150         	100         	0           	Open  	;
+ P151            	J205            	J193            	25.12       	100         	100         	0           	Open  	;
+ P150            	J198            	J138            	414.34      	150         	100         	0           	Open  	;
+ P149            	J198            	J199            	96.1        	150         	100         	0           	Open  	;
+ P148            	J202            	J197            	14.85       	100         	100         	0           	Open  	;
+ P147            	J199            	J202            	70.91       	150         	100         	0           	Open  	;
+ P146            	J204            	J202            	27.2        	150         	100         	0           	Open  	;
+ P145            	J204            	J196            	72.61       	100         	100         	0           	Open  	;
+ P144            	J199            	J203            	17.03       	150         	100         	0           	Open  	;
+ P143            	J195            	J203            	15.43       	100         	100         	0           	Open  	;
+ P142            	J194            	J201            	12.62       	100         	100         	0           	Open  	;
+ P141            	J200            	J201            	100.24      	150         	100         	0           	Open  	;
+ P67             	J88             	J200            	42.39814753 	150         	100         	0           	Open  	;
+ P67_1           	J200            	J89             	52.459478504	150         	100         	0           	Open  	;
+ P113            	J166            	J177            	64.31       	150         	100         	0           	Open  	;
+ P140            	J109            	J113            	81.9        	150         	100         	0           	Open  	;
+ P139            	J113            	J51             	23.93       	100         	100         	0           	Open  	;
+ P138            	J112            	J113            	84.77       	150         	100         	0           	Open  	;
+ P137            	J112            	J54             	24.77       	100         	100         	0           	Open  	;
+ P136            	J111            	J55             	30.18       	100         	100         	0           	Open  	;
+ P135            	J112            	J111            	75.01       	150         	100         	0           	Open  	;
+ P134            	J111            	J108            	55.43       	150         	100         	0           	Open  	;
+ P133            	J154            	J108            	93.92       	150         	100         	0           	Open  	;
+ P132            	J132            	J178            	96.4        	150         	100         	0           	Open  	;
+ P131            	J39             	J126            	58.07       	150         	100         	0           	Open  	;
+ P130            	J166            	J176            	45.48       	150         	100         	0           	Open  	;
+ P129            	J105            	J166            	11.94       	100         	100         	0           	Open  	;
+ P128            	J177            	J48             	6.27        	100         	100         	0           	Open  	;
+ P106            	J176            	J122            	39.11       	150         	100         	0           	Open  	;
+ P119            	J165            	J176            	72.325188649	150         	100         	0           	Open  	;
+ P127            	J165            	J104            	43.54       	100         	100         	0           	Open  	;
+ P126            	J169            	J11             	15.8        	100         	100         	0           	Open  	;
+ P125            	J168            	J169            	43.43       	150         	100         	0           	Open  	;
+ P124            	J168            	J12             	31.05       	100         	100         	0           	Open  	;
+ P123            	J167            	J168            	65.89       	150         	100         	0           	Open  	;
+ P120            	J167            	J165            	59.53       	150         	100         	0           	Open  	;
+ P118            	J109            	J126            	58.62       	150         	100         	0           	Open  	;
+ P117            	J114            	J109            	33.28       	150         	100         	0           	Open  	;
+ P116            	J114            	J43             	18.66       	100         	100         	0           	Open  	;
+ P112            	J125            	J52             	16.88       	100         	100         	0           	Open  	;
+ P111            	J116            	J125            	56.28       	100         	100         	0           	Open  	;
+ P110            	J123            	J116            	57.46       	150         	100         	0           	Open  	;
+ P109            	J124            	J53             	14.31       	100         	100         	0           	Open  	;
+ P108            	J124            	J123            	64.6        	100         	100         	0           	Open  	;
+ P107            	J122            	J123            	55.41       	150         	100         	0           	Open  	;
+ P105            	J122            	J102            	79.54       	100         	100         	0           	Open  	;
+ P104            	J106            	J122            	69.3        	150         	100         	0           	Open  	;
+ P103            	J106            	J121            	13.74       	100         	100         	0           	Open  	;
+ P102            	J119            	J106            	116.08      	150         	100         	0           	Open  	;
+ P101            	J118            	J119            	20.7        	150         	100         	0           	Open  	;
+ P100            	J119            	J107            	13.67       	100         	100         	0           	Open  	;
+ P62             	J117            	J118            	77.88       	150         	100         	0           	Open  	;
+ P61             	J126            	J164            	69.73       	150         	100         	0           	Open  	;
+ P60             	J164            	J110            	89.05       	150         	100         	0           	Open  	;
+ P59             	J164            	J10             	26.97       	100         	100         	0           	Open  	;
+ P58             	J163            	J8              	14.51       	100         	100         	0           	Open  	;
+ P55             	J161            	J9              	14.44       	100         	100         	0           	Open  	;
+ P54             	J110            	J161            	54.52       	150         	100         	0           	Open  	;
+ P53             	J172            	J128            	76.8        	100         	100         	0           	Open  	;
+ P52             	J174            	J131            	81.49       	100         	100         	0           	Open  	;
+ P51             	J173            	J130            	79.39       	100         	100         	0           	Open  	;
+ P49             	J174            	J68             	14.45       	100         	100         	0           	Open  	;
+ P48             	J173            	J67             	19.97       	100         	100         	0           	Open  	;
+ P46             	J172            	J66             	16.79       	100         	100         	0           	Open  	;
+ P41             	J65             	J133            	8.63        	100         	100         	0           	Open  	;
+ P39             	J132            	J133            	110.27      	150         	100         	0           	Open  	;
+ P38             	J132            	J64             	9.1         	100         	100         	0           	Open  	;
+ P91             	J69             	J117            	16.959122704	150         	100         	0           	Open  	;
+ P91_1           	J117            	J101            	42.467448121	150         	100         	0           	Open  	;
+ P37             	J56             	J62             	11.36       	100         	100         	0           	Open  	;
+ P25             	J60             	J62             	41.41       	150         	100         	0           	Open  	;
+ P24             	J63             	J58             	14.39       	100         	100         	0           	Open  	;
+ P8              	J63             	J61             	78.05       	150         	100         	0           	Open  	;
+ P7              	J57             	J61             	16.23       	100         	100         	0           	Open  	;
+ P6              	J61             	J60             	26.37       	150         	100         	0           	Open  	;
+ P3              	J97             	J59             	13.9        	100         	100         	0           	Open  	;
+ P87             	J98             	J70             	67.52       	150         	100         	0           	Open  	;
+ P86             	J71             	J98             	26.63       	100         	100         	0           	Open  	;
+ P85             	J73             	J98             	73.25       	150         	100         	0           	Open  	;
+ P84             	J82             	J81             	16.2        	150         	100         	0           	Open  	;
+ P83             	J76             	J82             	33.74       	100         	100         	0           	Open  	;
+ P81             	J85             	J83             	28.42       	100         	100         	0           	Open  	;
+ P80             	J86             	J83             	111.7       	150         	100         	0           	Open  	;
+ P79             	J82             	J83             	36.51       	150         	100         	0           	Open  	;
+ P77             	J80             	J157            	79.66       	150         	100         	0           	Open  	;
+ P76             	J80             	J78             	14.19       	100         	100         	0           	Open  	;
+ P75             	J79             	J80             	69.49       	150         	100         	0           	Open  	;
+ P74             	J79             	J75             	16.22       	100         	100         	0           	Open  	;
+ P73             	J70             	J79             	67.14       	150         	100         	0           	Open  	;
+ P72             	J86             	J90             	51.2        	100         	100         	0           	Open  	;
+ P70             	J87             	J88             	108.13      	150         	100         	0           	Open  	;
+ P69             	J91             	J87             	21.88       	100         	100         	0           	Open  	;
+ P68             	J13             	J88             	46.37       	100         	100         	0           	Open  	;
+ P66             	J14             	J89             	44.75       	100         	100         	0           	Open  	;
+ P64             	J89             	J93             	110.07      	150         	100         	0           	Open  	;
+ P63             	J94             	J93             	9.5         	150         	100         	0           	Open  	;
+ P11             	J15             	J93             	46.28       	100         	100         	0           	Open  	;
+ P10             	J74             	J94             	53.53       	100         	100         	0           	Open  	;
+ P184            	J001            	J157            	20.93       	100         	100         	0           	Open  	;
+ P182            	J155            	J156            	29.99       	100         	100         	0           	Open  	;
+ P178            	J146            	J156            	104.41754291	150         	100         	0           	Open  	;
+ P178_1          	J156            	J138            	161.32466629	150         	100         	0           	Open  	;
+ P181            	J139            	J73             	54.14       	100         	100         	0           	Open  	;
+ P180            	J152            	J151            	55.05       	100         	100         	0           	Open  	;
+ P31             	J47             	J152            	119.08      	300         	100         	0           	Open  	;
+ P177            	J144            	J146            	55.33       	100         	100         	0           	Open  	;
+ P176            	J145            	J146            	9.21        	150         	100         	0           	Open  	;
+ P175            	J145            	J135            	24.95       	100         	100         	0           	Open  	;
+ P174            	J147            	J145            	15.89       	150         	100         	0           	Open  	;
+ P173            	J147            	J136            	11.54       	100         	100         	0           	Open  	;
+ P172            	J148            	J147            	15.36       	150         	100         	0           	Open  	;
+ P171            	J150            	J148            	21.35       	150         	100         	0           	Open  	;
+ P169            	J141            	J150            	11.59       	100         	100         	0           	Open  	;
+ P168            	J150            	J142            	11.29       	100         	100         	0           	Open  	;
+ P9_4            	J73             	J138            	124.90201313	150         	100         	0           	Open  	;
+ P166            	J129            	J134            	25.24       	100         	100         	0           	Open  	;
+ P163            	J100            	J129            	7.06        	150         	100         	0           	Open  	;
+ P162            	J100            	J50             	7.76        	150         	100         	0           	Open  	;
+ P160            	J100            	J7              	10.6        	100         	100         	0           	Open  	;
+ P159            	J006            	J50             	15.75       	100         	100         	0           	Open  	;
+ P40             	J46             	J50             	10.06       	100         	100         	0           	Open  	;
+ P23             	J140            	J50             	25.98       	150         	100         	0           	Open  	;
+ P30             	J002            	J38             	8.26        	100         	100         	0           	Open  	;
+ P28             	J30             	J5              	8.96        	100         	100         	0           	Open  	;
+ P27_2           	J44             	J38             	6.319846002 	150         	100         	0           	Open  	;
+ P27_1           	J38             	J36             	13.669556861	150         	100         	0           	Open  	;
+ P26             	J36             	J30             	8.0680047869	150         	100         	0           	Open  	;
+ P65             	J47             	J73             	53.44       	150         	100         	0           	Open  	;
+ P34             	J004            	J37             	15.29       	100         	100         	0           	Open  	;
+ P29             	J003            	J37             	9.36        	100         	100         	0           	Open  	;
+ P33             	J40             	J007            	22.47       	100         	100         	0           	Open  	;
+ P36             	J005            	J36             	22.07       	100         	100         	0           	Open  	;
+ P27             	J37             	J44             	10.96       	150         	100         	0           	Open  	;
+ P35             	J44             	J41             	19.8        	100         	100         	0           	Open  	;
+ P78             	J69             	J81             	48.24       	150         	100         	0           	Open  	;
+ P82             	J84             	J81             	26.33       	100         	100         	0           	Open  	;
+ P88             	J99             	J70             	39.78       	150         	100         	0           	Open  	;
+ P89             	J99             	J95             	21.81       	100         	100         	0           	Open  	;
+ P90             	J99             	J69             	74.02       	150         	100         	0           	Open  	;
+ P94             	J96             	J154            	72.97       	100         	100         	0           	Open  	;
+ P92             	J101            	J008            	28.34       	100         	100         	0           	Open  	;
+ P97             	J160            	J154            	60.3        	150         	100         	0           	Open  	;
+ P98             	J160            	J97             	73.21       	150         	100         	0           	Open  	;
+ P45             	J127            	J128            	75.64       	150         	100         	0           	Open  	;
+ P47             	J128            	J130            	49.18       	150         	100         	0           	Open  	;
+ P50             	J130            	J131            	54.33       	150         	100         	0           	Open  	;
+ P99             	J103            	J118            	86.54       	100         	100         	0           	Open  	;
+ P114            	J115            	J49             	13.29       	100         	100         	0           	Open  	;
+ P115            	J115            	J114            	31.74       	150         	100         	0           	Open  	;
+ P122            	J175            	J77             	8.17        	100         	100         	0           	Open  	;
+ P158            	J219            	J216            	9.23        	150         	100         	0           	Open  	;
+ P185            	J219            	J184            	30.33       	100         	100         	0           	Open  	;
+ P199            	J210            	J189            	27.69       	100         	100         	0           	Open  	;
+ P201            	J206            	J207            	65.12       	150         	100         	0           	Open  	;
+ P202            	J207            	J190            	24.88       	100         	100         	0           	Open  	;
+ P203            	J207            	J208            	51.32       	150         	100         	0           	Open  	;
+ P204            	J208            	J191            	53.58       	100         	100         	0           	Open  	;
+ P205            	J208            	J209            	51.52       	150         	100         	0           	Open  	;
+ P206            	J209            	J192            	57.37       	100         	100         	0           	Open  	;
+ P167            	J143            	J150            	26.49       	100         	100         	0           	Open  	;
+ P56             	J161            	J163            	79.51       	150         	100         	0           	Open  	;
+ P14             	J19             	J21             	2.23        	100         	100         	0           	Open  	;
+ P18             	J17             	J21             	2.22        	100         	100         	0           	Open  	;
+ P1              	J140            	J1              	25.23       	300         	100         	0           	Open  	;
+ P4              	J47             	J205            	30.39       	150         	100         	0           	Open  	;
+ P9              	J153            	J40             	32.25       	100         	100         	0           	Open  	;
+ P15             	J152            	J40             	39.16       	300         	100         	0           	Open  	;
+ P22             	J24             	J72             	44.45       	100         	100         	0           	Open  	;
+ P42             	J204            	J25             	65.63       	150         	100         	0           	Open  	;
+
+[PUMPS]
+;ID              	Node1           	Node2           	Parameters
+ PU2             	J4              	J3              	HEAD HEAD	SPEED 1	;
+ PU1             	J20             	J2              	HEAD HEAD	SPEED 1	;
+
+[VALVES]
+;ID              	Node1           	Node2           	Diameter    	Type	Setting     	MinorLoss   
+ V2              	J18             	J19             	100         	TCV 	0           	0           	;
+ V1              	J16             	J17             	100         	TCV 	0           	0           	;
+
+[TAGS]
+
+[DEMANDS]
+;Junction        	Demand      	Pattern         	Category
+
+[STATUS]
+;ID              	Status/Setting
+ V2              	Open
+ V1              	Open
+
+[PATTERNS]
+;ID              	Multipliers
+;
+ constant        	1           
+;
+ PATTERN         	0.617900    	0.481700    	0.440900    	0.429000    	0.435400    	0.526200    
+ PATTERN         	0.914900    	1.245600    	1.239700    	1.238000    	1.221800    	1.167400    
+ PATTERN         	1.135800    	1.085900    	1.060000    	1.066300    	1.112000    	1.162500    
+ PATTERN         	1.259400    	1.344300    	1.408600    	1.414600    	1.184400    	0.867500    
+
+[CURVES]
+;ID              	X-Value     	Y-Value
+;PUMP: PUMP: HEAD CURVE
+ HEAD            	0.000000    	60.000000   
+ HEAD            	10.000000   	59.900000   
+ HEAD            	20.000000   	59.500000   
+ HEAD            	30.000000   	59.170000   
+ HEAD            	43.000000   	53.330000   
+ HEAD            	50.000000   	48.330000   
+ HEAD            	60.000000   	39.170000   
+ HEAD            	70.000000   	27.500000   
+;PUMP: EFFICIENCY: EFFICIENCY CURVE
+ EFF             	0.000000    	0.000000    
+ EFF             	10.000000   	39.230000   
+ EFF             	20.000000   	59.230000   
+ EFF             	30.000000   	70.000000   
+ EFF             	43.000000   	75.800000   
+ EFF             	50.000000   	75.380000   
+ EFF             	60.000000   	70.000000   
+ EFF             	70.000000   	56.160000   
+
+[CONTROLS]
+
+
+
+
+
+
+
+
+[RULES]
+
+
+
+
+
+
+
+
+[ENERGY]
+ Global Efficiency  	75
+ Global Price       	0.0000
+ Demand Charge      	0
+ Pump 	PU2             	Efficiency	EFF
+ Pump 	PU1             	Efficiency	EFF
+
+[EMITTERS]
+;Junction        	Coefficient
+
+[QUALITY]
+;Node            	InitQual
+
+[SOURCES]
+;Node            	Type        	Quality     	Pattern
+
+[REACTIONS]
+;Type     	Pipe/Tank       	Coefficient
+
+
+[REACTIONS]
+ Order Bulk            	1
+ Order Tank            	1
+ Order Wall            	1
+ Global Bulk           	0.0000
+ Global Wall           	0.0000
+ Limiting Potential    	0
+ Roughness Correlation 	0
+
+[MIXING]
+;Tank            	Model
+
+[TIMES]
+ Duration           	24:00 
+ Hydraulic Timestep 	1:00 
+ Quality Timestep   	1:00 
+ Pattern Timestep   	1:00 
+ Pattern Start      	0:00 
+ Report Timestep    	1:00 
+ Report Start       	0:00 
+ Start ClockTime    	00:00:00 AM
+ Statistic          	NONE
+
+[REPORT]
+ Status             	Full
+ Summary            	No
+ Page               	0
+
+[OPTIONS]
+ Units              	CMH
+ Headloss           	H-W
+ Specific Gravity   	1
+ Viscosity          	1
+ Trials             	200
+ Accuracy           	0.001
+ CHECKFREQ          	2
+ MAXCHECK           	10
+ DAMPLIMIT          	0
+ Unbalanced         	Continue 10
+ Pattern            	constant
+ Demand Multiplier  	1
+ Emitter Exponent   	0.5
+ Quality            	NONE mg/L
+ Diffusivity        	1
+ Tolerance          	0.01
+
+[COORDINATES]
+;Node            	X-Coord           	Y-Coord
+J31             	28.7063270        	50.2448940        
+J27             	28.7062830        	50.2446900        
+J26             	28.7058900        	50.2411291        
+J24             	28.7086420        	50.2520270        
+J22             	28.7084480        	50.2513430        
+J186            	28.7029973        	50.2497481        
+J005            	28.7025258        	50.2504709        
+J3              	28.6990486        	50.2483483        
+J4              	28.6990746        	50.2483484        
+J2              	28.6990483        	50.2483087        
+J001            	28.7052604        	50.2453892        
+J008            	28.7074981        	50.2474562        
+J006            	28.6984343        	50.2480296        
+J007            	28.7009009        	50.2481975        
+J002            	28.7023491        	50.2507589        
+J003            	28.7021072        	50.2507902        
+J004            	28.7020765        	50.2505694        
+J20             	28.6990775        	50.2483086        
+J40             	28.7009162        	50.2479957        
+J47             	28.7031369        	50.2479056        
+J36             	28.7025287        	50.2506694        
+J37             	28.7020972        	50.2507063        
+J73             	28.7030690        	50.2474270        
+J134            	28.6982756        	50.2478306        
+J140            	28.6987144        	50.2482517        
+J5              	28.7026510        	50.2507393        
+J30             	28.7026410        	50.2506590        
+J38             	28.7023380        	50.2506850        
+J41             	28.7022498        	50.2505149        
+J44             	28.7022500        	50.2506930        
+J7              	28.6987894        	50.2479473        
+J46             	28.6987968        	50.2480187        
+J50             	28.6986554        	50.2480211        
+J100            	28.6986405        	50.2479520        
+J129            	28.6986181        	50.2478901        
+J135            	28.6994205        	50.2471297        
+J136            	28.6991766        	50.2470092        
+J141            	28.6989420        	50.2471401        
+J142            	28.6987112        	50.2469973        
+J143            	28.6984675        	50.2471523        
+J144            	28.6995357        	50.2473769        
+J138            	28.7029160        	50.2463080        
+J145            	28.6994067        	50.2469055        
+J146            	28.6995295        	50.2468793        
+J147            	28.6991833        	50.2469055        
+J148            	28.6989673        	50.2469055        
+J150            	28.6988184        	50.2470722        
+J139            	28.7023100        	50.2474658        
+J151            	28.7014233        	50.2474876        
+J152            	28.7014665        	50.2479819        
+J153            	28.7009186        	50.2477057        
+J155            	28.7006702        	50.2467327        
+J156            	28.7006630        	50.2464630        
+J157            	28.7049665        	50.2453997        
+J84             	28.7069602        	50.2467914        
+J85             	28.7069571        	50.2463402        
+J90             	28.7071422        	50.2453178        
+J91             	28.7065616        	50.2445484        
+J13             	28.7053921        	50.2436014        
+J14             	28.7053080        	50.2427835        
+J15             	28.7053183        	50.2417820        
+J74             	28.7067007        	50.2416414        
+J75             	28.7052081        	50.2467018        
+J76             	28.7061000        	50.2466749        
+J78             	28.7051324        	50.2461153        
+J69             	28.7066372        	50.2472427        
+J70             	28.7050429        	50.2473318        
+J79             	28.7049840        	50.2467292        
+J80             	28.7049335        	50.2461051        
+J81             	28.7065910        	50.2468099        
+J82             	28.7065742        	50.2466646        
+J83             	28.7065574        	50.2463364        
+J86             	28.7064227        	50.2453356        
+J87             	28.7062545        	50.2445601        
+J88             	28.7060441        	50.2435970        
+J89             	28.7059347        	50.2427468        
+J93             	28.7059684        	50.2417621        
+J94             	28.7059501        	50.2416775        
+J71             	28.7041277        	50.2476081        
+J95             	28.7056284        	50.2474992        
+J96             	28.7093096        	50.2477691        
+J97             	28.7083159        	50.2464950        
+J98             	28.7040952        	50.2473695        
+J99             	28.7056006        	50.2473039        
+J154            	28.7092221        	50.2471153        
+J101            	28.7074705        	50.2472019        
+J160            	28.7083761        	50.2471523        
+J8              	28.7099155        	50.2518406        
+J9              	28.7107311        	50.2515551        
+J10             	28.7109761        	50.2508540        
+J11             	28.7101230        	50.2509700        
+J12             	28.7093489        	50.2513246        
+J39             	28.7103916        	50.2502349        
+J43             	28.7106789        	50.2498723        
+J48             	28.7095371        	50.2500335        
+J49             	28.7101985        	50.2495972        
+J51             	28.7106092        	50.2489769        
+J52             	28.7093996        	50.2489774        
+J53             	28.7085497        	50.2490213        
+J54             	28.7104699        	50.2482209        
+J55             	28.7102552        	50.2475595        
+J56             	28.7089223        	50.2455645        
+J57             	28.7081088        	50.2455281        
+J58             	28.7080627        	50.2448278        
+J59             	28.7085113        	50.2464917        
+J60             	28.7083571        	50.2457551        
+J61             	28.7083365        	50.2455183        
+J62             	28.7087633        	50.2455743        
+J63             	28.7082645        	50.2448179        
+J64             	28.7046065        	50.2522085        
+J65             	28.7061520        	50.2522233        
+J66             	28.7050829        	50.2515175        
+J67             	28.7058382        	50.2515100        
+J68             	28.7065587        	50.2515026        
+J72             	28.7080210        	50.2520728        
+J77             	28.7086341        	50.2515655        
+J102            	28.7068918        	50.2496679        
+J103            	28.7057333        	50.2479684        
+J104            	28.7088473        	50.2505730        
+J105            	28.7087113        	50.2498393        
+J107            	28.7071611        	50.2481017        
+J108            	28.7105374        	50.2470380        
+J109            	28.7111184        	50.2496833        
+J110            	28.7115019        	50.2516227        
+J111            	28.7106768        	50.2475285        
+J112            	28.7108163        	50.2481972        
+J113            	28.7109441        	50.2489552        
+J114            	28.7106516        	50.2497054        
+J115            	28.7102055        	50.2497166        
+J116            	28.7095763        	50.2494923        
+J117            	28.7068750        	50.2472310        
+J118            	28.7069488        	50.2479298        
+J119            	28.7069700        	50.2481155        
+J121            	28.7077016        	50.2490223        
+J106            	28.7075264        	50.2490745        
+J122            	28.7080075        	50.2496165        
+J123            	28.7087865        	50.2496019        
+J124            	28.7083741        	50.2490842        
+J125            	28.7091912        	50.2490501        
+J126            	28.7112072        	50.2502074        
+J127            	28.7032889        	50.2509838        
+J128            	28.7043526        	50.2509730        
+J130            	28.7050423        	50.2509398        
+J131            	28.7058061        	50.2509256        
+J132            	28.7045968        	50.2522901        
+J133            	28.7061476        	50.2523009        
+J161            	28.7107412        	50.2516848        
+J163            	28.7099404        	50.2519701        
+J164            	28.7113531        	50.2508275        
+J165            	28.7082374        	50.2506078        
+J167            	28.7083825        	50.2511351        
+J168            	28.7092989        	50.2510472        
+J169            	28.7099026        	50.2509878        
+J172            	28.7048680        	50.2515800        
+J173            	28.7055725        	50.2515681        
+J174            	28.7063771        	50.2515610        
+J175            	28.7085212        	50.2515790        
+J176            	28.7080820        	50.2499650        
+J166            	28.7087210        	50.2499465        
+J177            	28.7095429        	50.2500898        
+J178            	28.7032410        	50.2522854        
+J179            	28.7035889        	50.2518838        
+J180            	28.7037909        	50.2512432        
+J181            	28.7030520        	50.2509137        
+J182            	28.7056158        	50.2505239        
+J183            	28.7043497        	50.2505578        
+J184            	28.7037199        	50.2508248        
+J185            	28.7029841        	50.2504688        
+J187            	28.7052115        	50.2499855        
+J188            	28.7040978        	50.2500704        
+J189            	28.7037122        	50.2494803        
+J190            	28.7041645        	50.2488213        
+J191            	28.7049046        	50.2490448        
+J192            	28.7056242        	50.2490546        
+J193            	28.7035144        	50.2481500        
+J194            	28.7045750        	50.2431730        
+J195            	28.7037779        	50.2428689        
+J196            	28.7044557        	50.2418164        
+J197            	28.7032625        	50.2421131        
+J198            	28.7023538        	50.2425991        
+J199            	28.7035422        	50.2427307        
+J200            	28.7059950        	50.2432170        
+J201            	28.7045896        	50.2432861        
+J202            	28.7034693        	50.2420947        
+J203            	28.7035621        	50.2428833        
+J204            	28.7034361        	50.2418510        
+J205            	28.7031639        	50.2481784        
+J206            	28.7032277        	50.2486429        
+J207            	28.7041409        	50.2485981        
+J208            	28.7048606        	50.2485638        
+J209            	28.7055842        	50.2485393        
+J210            	28.7033235        	50.2494951        
+J211            	28.7032996        	50.2501994        
+J212            	28.7041056        	50.2501636        
+J213            	28.7043291        	50.2501585        
+J214            	28.7052229        	50.2501177        
+J215            	28.7056060        	50.2501024        
+J217            	28.7033011        	50.2506005        
+J219            	28.7032934        	50.2508233        
+J216            	28.7032960        	50.2509063        
+J220            	28.7032891        	50.2512392        
+J221            	28.7032628        	50.2518690        
+J222            	28.7030510        	50.2506230        
+J92             	28.7033150        	50.2497570        
+J6              	28.6988532        	50.2478112        
+J120            	28.7077935        	50.2460211        
+J149            	28.7082710        	50.2459920        
+J16             	28.6990957        	50.2483086        
+J17             	28.6991258        	50.2483086        
+J18             	28.6990942        	50.2483486        
+J19             	28.6991233        	50.2483486        
+J21             	28.6991251        	50.2483286        
+J1              	28.6990481        	50.2483288        
+J23             	28.7087176        	50.2523087        
+J25             	28.7032790        	50.2412725        
+J28             	28.7082498        	50.2445739        
+J29             	28.7049306        	50.2449274        
+R1              	28.6993182        	50.2483290        
+
+[VERTICES]
+;Link            	X-Coord           	Y-Coord
+P42_1           	28.7047984        	50.2412019        
+P42_1           	28.7052123        	50.2409991        
+P42_1           	28.7054737        	50.2409898        
+P42_1           	28.7056843        	50.2411353        
+P32             	28.7096692        	50.2522240        
+P32             	28.7096289        	50.2519982        
+P17             	28.7068073        	50.2523087        
+P17             	28.7067855        	50.2520285        
+P17             	28.7074087        	50.2515900        
+P17             	28.7077597        	50.2515378        
+P16             	28.6993466        	50.2479417        
+P16             	28.6994322        	50.2479045        
+P16             	28.6998606        	50.2478674        
+P16             	28.7003439        	50.2478713        
+P16             	28.7005520        	50.2479065        
+P16             	28.7007049        	50.2479867        
+P5_1            	28.7082542        	50.2458110        
+P149            	28.7029124        	50.2425929        
+P149            	28.7030516        	50.2427625        
+P113            	28.7090915        	50.2501118        
+P102            	28.7070229        	50.2484946        
+P25             	28.7085782        	50.2457716        
+P77             	28.7048775        	50.2455600        
+P64             	28.7059004        	50.2423692        
+P64             	28.7059874        	50.2420075        
+P178            	28.6995928        	50.2466698        
+P178            	28.6996822        	50.2466126        
+P178_1          	28.7009444        	50.2464198        
+P56             	28.7104401        	50.2517186        
+P56             	28.7104493        	50.2519065        
+P42             	28.7034311        	50.2417985        
+P42             	28.7033827        	50.2417273        
+P42             	28.7033052        	50.2414471        
+
+[LABELS]
+;X-Coord             Y-Coord             Label & Anchor Node
+
+[BACKDROP]
+  DIMENSIONS  	28.6976143        	50.2405701        	28.7121632        	50.2528677        
+ UNITS          	Degrees
+ FILE           	
+ OFFSET         	0.00            	0.00            
+
+[END]
