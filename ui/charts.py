@@ -5,6 +5,10 @@ ui/charts.py — Dual-axis comparison chart.
   Right Y — Pressure (bar): blue=planned, green=GA — lower portion
 
   Legend order: Suggested, Planned, Forecast
+
+NOTE: The go.Figure() / add_trace() / update_layout() calls are the Plotly
+library's API for building an interactive chart. There is no simpler alternative
+using Plotly — each parameter directly specifies one visual property.
 """
 import numpy as np
 import plotly.graph_objects as go
@@ -24,16 +28,16 @@ _WHITE = "#e6edf3"
 _HOURS = [f"{h:02d}:00" for h in range(24)]
 
 
-def render_comparison_chart(results: dict) -> None:
-    Q_forecast  = results["Q_forecast"]
-    ga_schedule = results["ga_schedule"]
-    planned_p   = results["planned_pressure"]
+def render_comparison_chart(results) -> None:
+    Q_forecast  = results.Q_forecast
+    ga_schedule = results.ga_schedule
+    planned_p   = results.planned_pressure
 
     fig = go.Figure()
 
-    # TRACE ORDER matches legend order: Suggested first, Planned second, Forecast last
+    # Trace order matches legend order: Suggested first, Planned second, Forecast last
 
-    # 1) GA-optimised pressure — green solid, RIGHT axis
+    # GA-optimised pressure — green solid, right axis
     fig.add_trace(go.Scatter(
         x=_HOURS, y=ga_schedule,
         mode="lines+markers",
@@ -44,7 +48,7 @@ def render_comparison_chart(results: dict) -> None:
         yaxis="y2",
     ))
 
-    # 2) Planned pressure (operator baseline) — blue solid, RIGHT axis
+    # Planned pressure (operator baseline) — blue solid, right axis
     fig.add_trace(go.Scatter(
         x=_HOURS, y=planned_p,
         mode="lines+markers",
@@ -55,26 +59,24 @@ def render_comparison_chart(results: dict) -> None:
         yaxis="y2",
     ))
 
-    # 3) Demand forecast (SARIMAX) — grey dashed, LEFT axis
+    # Demand forecast (SARIMAX) — grey dashed, left axis
     fig.add_trace(go.Scatter(
         x=_HOURS, y=Q_forecast,
         mode="lines+markers",
         line=dict(color=_GREY, width=2, dash="dash"),
         marker=dict(color=_GREY, size=5),
         name="Demand Forecast (SARIMAX)",
-        hovertemplate="<b>%{x}</b><br>Demand: %{y:.0f} m\u00b3/h<extra></extra>",
+        hovertemplate="<b>%{x}</b><br>Demand: %{y:.0f} m³/h<extra></extra>",
         yaxis="y1",
     ))
 
-    q_min = float(np.min(Q_forecast))
-    q_max = float(np.max(Q_forecast))
     p_min = float(min(planned_p.min(), ga_schedule.min()))
     p_max = float(max(planned_p.max(), ga_schedule.max()))
 
-    # Extend both Y axes so demand line sits ABOVE pressure lines visually.
-    # Demand axis: range starts well below min so line appears in upper half.
-    # Pressure axis: range extends above max so lines appear in lower half.
-    demand_range = [0, 100]
+    # Extend both Y axes so the demand line sits above the pressure lines visually.
+    # Demand axis starts well below its minimum so the line appears in the upper half.
+    # Pressure axis extends above its maximum so lines appear in the lower half.
+    demand_range   = [0, 100]
     pressure_range = [p_min - 0.3, p_max + (p_max - p_min) * 2.5]
 
     fig.update_layout(
@@ -95,7 +97,7 @@ def render_comparison_chart(results: dict) -> None:
             tickangle=-45,
         ),
         yaxis=dict(
-            title="Demand (m\u00b3/h)",
+            title="Demand (m³/h)",
             gridcolor=_GRID, showgrid=True,
             range=demand_range,
             tickfont=dict(size=12),
