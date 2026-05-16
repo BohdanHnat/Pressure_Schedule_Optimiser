@@ -25,10 +25,26 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config as C
 
-_BG     = "#0d1117"
 _RED    = "#f85149"
 _GREEN  = "#3fb950"
 _YELLOW = "#d29922"
+
+_MAP_THEME = {
+    "light": dict(
+        bg="#f6f8fa", font_color="#24292f",
+        station_text="#0969da", pump_color="#1a7f37", pump_text="#1a7f37",
+        reservoir_marker="#57606a", reservoir_text="#24292f",
+        valve_marker="#57606a", valve_text="#24292f",
+        pipe_color="rgba(9,105,218,0.5)", scatter_node_outline="#f6f8fa",
+    ),
+    "dark": dict(
+        bg="#0d1117", font_color="#e6edf3",
+        station_text="#58a6ff", pump_color="#3fb950", pump_text="#3fb950",
+        reservoir_marker="#6e7681", reservoir_text="#8b949e",
+        valve_marker="#6e7681", valve_text="#8b949e",
+        pipe_color="rgba(150,180,220,0.4)", scatter_node_outline="#0d1117",
+    ),
+}
 
 
 def _pressure_color(p: float) -> str:
@@ -133,7 +149,7 @@ class NetworkGeometry:
         return geom
 
 
-def render_pressure_map(results) -> None:
+def render_pressure_map(results, theme: str = "light") -> None:
     wn                = results.wn
     node_pressures_ga = results.node_pressures_ga
     ga_schedule       = results.ga_schedule
@@ -202,13 +218,13 @@ def render_pressure_map(results) -> None:
     is_geographic = (20 < avg_lon < 45) and (40 < avg_lat < 55)
 
     if is_geographic:
-        _render_mapbox(geom, node_colors, hover_texts, lons, lats, avg_lon, avg_lat)
+        _render_mapbox(geom, node_colors, hover_texts, lons, lats, avg_lon, avg_lat, theme)
     else:
-        _render_scatter(geom, node_colors, hover_texts)
+        _render_scatter(geom, node_colors, hover_texts, theme)
 
 
 def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
-                   lons, lats, avg_lon, avg_lat):
+                   lons, lats, avg_lon, avg_lat, theme: str = "light"):
     """
     Render on OpenStreetMap tiles using Plotly Scattermapbox.
 
@@ -217,6 +233,7 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
     shorter way to produce this output using Plotly — each parameter specifies
     exactly one visual property of the rendered figure.
     """
+    t = _MAP_THEME.get(theme, _MAP_THEME["light"])
     fig = go.Figure()
 
     # Pipe edges — rebuild from edge_x/edge_y (which use None as segment separator)
@@ -251,7 +268,7 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
             mode="markers+text",
             marker=dict(size=22, color="rgba(40,80,160,0.9)"),
             text=["Pumping Station"],
-            textfont=dict(color="#58a6ff", size=11),
+            textfont=dict(color=t["station_text"], size=11),
             textposition="top center",
             hovertemplate="<b>Pumping Station</b><extra></extra>",
             showlegend=False,
@@ -262,8 +279,8 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
         fig.add_trace(go.Scattermapbox(
             lon=[mx], lat=[my],
             mode="markers+text",
-            marker=dict(size=12, color="#3fb950", symbol="circle"),
-            text=[pid], textfont=dict(color="#3fb950", size=10),
+            marker=dict(size=12, color=t["pump_color"], symbol="circle"),
+            text=[pid], textfont=dict(color=t["pump_text"], size=10),
             textposition="top center",
             hovertemplate=f"<b>{pid}</b><br>Pump<extra></extra>",
             showlegend=False,
@@ -274,8 +291,8 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
         fig.add_trace(go.Scattermapbox(
             lon=[rx], lat=[ry],
             mode="markers+text",
-            marker=dict(size=14, color="#6e7681"),
-            text=[rname], textfont=dict(color="#6e7681", size=9),
+            marker=dict(size=14, color=t["reservoir_marker"]),
+            text=[rname], textfont=dict(color=t["reservoir_text"], size=9),
             textposition="top center",
             hovertemplate=f"<b>{rname}</b><br>Reservoir<extra></extra>",
             showlegend=False,
@@ -286,8 +303,8 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
         fig.add_trace(go.Scattermapbox(
             lon=[vx], lat=[vy],
             mode="markers+text",
-            marker=dict(size=10, color="#6e7681"),
-            text=[vname], textfont=dict(color="#6e7681", size=9),
+            marker=dict(size=10, color=t["valve_marker"]),
+            text=[vname], textfont=dict(color=t["valve_text"], size=9),
             textposition="top center",
             hovertemplate=f"<b>{vname}</b><br>Valve<extra></extra>",
             showlegend=False,
@@ -304,9 +321,10 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
             center=dict(lon=avg_lon, lat=avg_lat),
             zoom=zoom,
         ),
+        paper_bgcolor=t["bg"],
         height=650,
         margin=dict(l=0, r=0, t=0, b=0),
-        font=dict(family="monospace", size=13),
+        font=dict(family="monospace", color=t["font_color"], size=13),
     )
 
     st.plotly_chart(fig, width='stretch', config={
@@ -320,25 +338,26 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
     })
 
 
-def _render_scatter(geom: NetworkGeometry, node_colors, hover_texts):
+def _render_scatter(geom: NetworkGeometry, node_colors, hover_texts, theme: str = "light"):
     """
     Fallback renderer using plain Plotly Scatter (local/non-geographic coordinates).
 
     NOTE: Same Plotly API constraints apply here as in _render_mapbox — the
     go.Scatter() calls are direct Plotly specifications with no simpler alternative.
     """
+    t = _MAP_THEME.get(theme, _MAP_THEME["light"])
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
         x=geom.edge_x, y=geom.edge_y,
-        mode="lines", line=dict(color="rgba(150,180,220,0.4)", width=1),
+        mode="lines", line=dict(color=t["pipe_color"], width=1),
         hoverinfo="skip", showlegend=False,
     ))
     fig.add_trace(go.Scatter(
         x=geom.consumer_x, y=geom.consumer_y,
         mode="markers",
         marker=dict(size=11, color=node_colors,
-                    line=dict(width=0.5, color="#0d1117")),
+                    line=dict(width=0.5, color=t["scatter_node_outline"])),
         text=hover_texts, hovertemplate="%{text}<extra></extra>",
         showlegend=False,
     ))
@@ -348,9 +367,9 @@ def _render_scatter(geom: NetworkGeometry, node_colors, hover_texts):
         fig.add_trace(go.Scatter(
             x=[sx], y=[sy], mode="markers+text",
             marker=dict(size=26, color="rgba(40,80,160,0.9)", symbol="circle",
-                        line=dict(width=2, color="#58a6ff")),
+                        line=dict(width=2, color=t["station_text"])),
             text=["Pumping Station"],
-            textfont=dict(color="#58a6ff", size=10, family="monospace"),
+            textfont=dict(color=t["station_text"], size=10, family="monospace"),
             textposition="top center",
             hovertemplate="<b>Pumping Station</b><extra></extra>",
             showlegend=False,
@@ -359,9 +378,9 @@ def _render_scatter(geom: NetworkGeometry, node_colors, hover_texts):
     for rx, ry, rname in geom.reservoir_points:
         fig.add_trace(go.Scatter(
             x=[rx], y=[ry], mode="markers+text",
-            marker=dict(size=16, color="#6e7681", symbol="circle",
-                        line=dict(width=1, color="#484f58")),
-            text=[rname], textfont=dict(color="#8b949e", size=9, family="monospace"),
+            marker=dict(size=16, color=t["reservoir_marker"], symbol="circle",
+                        line=dict(width=1, color=t["reservoir_marker"])),
+            text=[rname], textfont=dict(color=t["reservoir_text"], size=9, family="monospace"),
             textposition="top center",
             hovertemplate=f"<b>{rname}</b><br>Reservoir<extra></extra>",
             showlegend=False,
@@ -370,21 +389,21 @@ def _render_scatter(geom: NetworkGeometry, node_colors, hover_texts):
     for vx, vy, vname in geom.valve_points:
         fig.add_trace(go.Scatter(
             x=[vx], y=[vy], mode="markers+text",
-            marker=dict(size=12, color="#6e7681", symbol="diamond",
-                        line=dict(width=1, color="#484f58")),
-            text=[vname], textfont=dict(color="#8b949e", size=9, family="monospace"),
+            marker=dict(size=12, color=t["valve_marker"], symbol="diamond",
+                        line=dict(width=1, color=t["valve_marker"])),
+            text=[vname], textfont=dict(color=t["valve_text"], size=9, family="monospace"),
             textposition="top center",
             hovertemplate=f"<b>{vname}</b><br>Valve<extra></extra>",
             showlegend=False,
         ))
 
     fig.update_layout(
-        paper_bgcolor=_BG, plot_bgcolor=_BG,
+        paper_bgcolor=t["bg"], plot_bgcolor=t["bg"],
         height=650, margin=dict(l=10, r=10, t=10, b=20),
         xaxis=dict(showgrid=False, showticklabels=False, zeroline=False),
         yaxis=dict(showgrid=False, showticklabels=False, zeroline=False,
                    scaleanchor="x", scaleratio=1),
-        font=dict(family="monospace", color="#e6edf3", size=13),
+        font=dict(family="monospace", color=t["font_color"], size=13),
     )
     st.plotly_chart(fig, width='stretch', config={
         "scrollZoom": True,

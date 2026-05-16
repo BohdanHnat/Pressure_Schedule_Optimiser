@@ -26,7 +26,7 @@ FOURIER_PERIOD_H       = 168           # weekly cycle in hours
 
 # ── GA parameters (debug values per user specification) ──────────────────────
 POP_SIZE     = 80
-N_GEN        = 1
+N_GEN        = 150
 N_STEPS      = 24
 WARM_FRAC    = 0.10
 ENERGY_WEIGHT= 80

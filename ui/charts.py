@@ -18,20 +18,31 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config as C
 
-_BG    = "#0d1117"
-_GRID  = "#21262d"
-_BLUE  = "#58a6ff"
-_GREEN = "#3fb950"
-_GREY  = "#8b949e"
-_WHITE = "#e6edf3"
-
 _HOURS = [f"{h:02d}:00" for h in range(24)]
 
+_THEME_COLORS = {
+    "light": dict(
+        bg="#f6f8fa", grid="#d0d7de",
+        blue="#0969da", green="#1a7f37", grey="#24292f", text="#24292f",
+        marker_outline="#f6f8fa", legend_bg="rgba(246,248,250,0.9)",
+    ),
+    "dark": dict(
+        bg="#0d1117", grid="#21262d",
+        blue="#58a6ff", green="#3fb950", grey="#8b949e", text="#e6edf3",
+        marker_outline="#0d1117", legend_bg="rgba(0,0,0,0)",
+    ),
+}
 
-def render_comparison_chart(results) -> None:
+
+def render_comparison_chart(results, theme: str = "light") -> None:
     Q_forecast  = results.Q_forecast
     ga_schedule = results.ga_schedule
     planned_p   = results.planned_pressure
+
+    c = _THEME_COLORS.get(theme, _THEME_COLORS["light"])
+    _BG, _GRID = c["bg"], c["grid"]
+    _BLUE, _GREEN, _GREY, _WHITE = c["blue"], c["green"], c["grey"], c["text"]
+    _MO = c["marker_outline"]
 
     fig = go.Figure()
 
@@ -42,7 +53,7 @@ def render_comparison_chart(results) -> None:
         x=_HOURS, y=ga_schedule,
         mode="lines+markers",
         line=dict(color=_GREEN, width=3),
-        marker=dict(color=_GREEN, size=8, line=dict(color="#0d1117", width=1)),
+        marker=dict(color=_GREEN, size=8, line=dict(color=_MO, width=1)),
         name="Suggested Pressure (GA)",
         hovertemplate="<b>%{x}</b><br>Optimised: %{y:.2f} bar<extra></extra>",
         yaxis="y2",
@@ -53,7 +64,7 @@ def render_comparison_chart(results) -> None:
         x=_HOURS, y=planned_p,
         mode="lines+markers",
         line=dict(color=_BLUE, width=2.5),
-        marker=dict(color=_BLUE, size=7, line=dict(color="#0d1117", width=1)),
+        marker=dict(color=_BLUE, size=7, line=dict(color=_MO, width=1)),
         name="Planned Pressure (Operator)",
         hovertemplate="<b>%{x}</b><br>Planned: %{y:.2f} bar<extra></extra>",
         yaxis="y2",
@@ -87,22 +98,23 @@ def render_comparison_chart(results) -> None:
         hovermode="x unified",
         legend=dict(
             orientation="h", x=0.0, y=1.16,
-            bgcolor="rgba(0,0,0,0)",
+            bgcolor=c["legend_bg"],
             font=dict(size=15),
         ),
         xaxis=dict(
             gridcolor=_GRID, showgrid=True,
-            tickfont=dict(size=12), title="Hour",
-            title_font=dict(size=14),
+            tickfont=dict(size=12, color=_WHITE),
+            title="Hour",
+            title_font=dict(size=14, color=_WHITE),
             tickangle=-45,
         ),
         yaxis=dict(
             title="Demand (m³/h)",
             gridcolor=_GRID, showgrid=True,
             range=demand_range,
-            tickfont=dict(size=12),
-            title_font=dict(color=_GREY, size=14),
-            tickfont_color=_GREY,
+            tickfont=dict(size=12, color=_WHITE),
+            title_font=dict(color=_WHITE, size=14),
+            tickfont_color=_WHITE,
         ),
         yaxis2=dict(
             title="Pressure (bar)",
