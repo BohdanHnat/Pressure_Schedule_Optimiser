@@ -9,6 +9,8 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"],
     color: #24292f !important;
     font-family: monospace !important;
 }
+/* Hide the 0-height iframe used to enforce light backgrounds */
+iframe[height="0"] { display: none !important; }
 [data-testid="stSidebar"], [data-testid="collapsedControl"] {
     background-color: #eaeef2 !important;
 }

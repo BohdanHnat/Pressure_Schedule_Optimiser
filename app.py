@@ -29,6 +29,7 @@ import os, sys
 import pandas as pd
 import numpy as np
 import streamlit as st
+import streamlit.components.v1 as _components
 from dataclasses import dataclass
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -59,6 +60,41 @@ def _load_css():
     st.markdown(f"<style>{base_css}</style>", unsafe_allow_html=True)
 
 _load_css()
+
+
+def _enforce_light_backgrounds():
+    """
+    Override Streamlit Cloud's dynamically injected dark-mode inline background
+    styles.  Streamlit's JavaScript sets background-color as an inline !important
+    style on html/body after our CSS loads, which stylesheet !important cannot
+    beat.  A component iframe reaching window.parent can call setProperty with
+    'important' to win that race.  Multiple delayed calls catch the full sequence
+    of Streamlit's theme-setup callbacks.
+    """
+    _components.html(
+        """<script>
+(function(){
+  var BG='#f6f8fa',p=window.parent.document;
+  function fix(){
+    var sels=[
+      'html','body',
+      '[data-testid="stApp"]',
+      '[data-testid="stAppViewContainer"]',
+      '[data-testid="stMain"]',
+      '[data-testid="stMainBlockContainer"]'
+    ];
+    sels.forEach(function(s){
+      var el=(s==='html'?p.documentElement:s==='body'?p.body:p.querySelector(s));
+      if(el) el.style.setProperty('background-color',BG,'important');
+    });
+  }
+  fix();
+  [80,200,400,800,1500].forEach(function(d){setTimeout(fix,d);});
+})();
+</script>""",
+        height=0,
+        scrolling=False,
+    )
 
 
 # ── Fixed station header (shown on all views) ─────────────────────────────────
@@ -693,6 +729,9 @@ def main():
 
     # Fixed header shown on all views
     _render_fixed_header()
+
+    # Override Streamlit Cloud's dark-mode inline background injection
+    _enforce_light_backgrounds()
 
     # DOM flush guard for the progress view.
     # NOTE: Streamlit — when navigating to "progress" for a new run, one empty rerun
