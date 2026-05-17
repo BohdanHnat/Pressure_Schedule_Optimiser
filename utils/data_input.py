@@ -150,7 +150,7 @@ class DataSection:
             fsize = st.session_state.get(self.filesize_key, 0)
             fsize_str = f"{fsize/1024:.1f}KB" if fsize >= 1024 else f"{fsize}B"
             st.markdown(
-                f"<div style='font-family:monospace; font-size:13px; color:#8b949e; "
+                f"<div style='font-family:monospace; font-size:13px; color:#24292f; "
                 f"padding:4px 0;'>"
                 f"\U0001f4c4 {fname} &nbsp; <span style='font-size:11px'>{fsize_str}</span>"
                 f"</div>",

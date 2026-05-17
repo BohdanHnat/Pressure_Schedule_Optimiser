@@ -108,19 +108,24 @@ button[kind="primary"], [data-testid="stBaseButton-primary"] {
 [data-testid="stAlert"] { font-family: monospace !important; font-size: 14px !important; }
 
 /* Progress bar — light track with border so the bar shape is visible, green fill */
-div[data-testid="stProgressBar"] > div {
+div[data-testid="stProgressBar"] > div,
+div[data-testid="stProgressBar"] [role="progressbar"] {
     background: #f6f8fa !important;
+    background-color: #f6f8fa !important;
     border: 1.5px solid #d0d7de !important;
     border-radius: 4px !important;
 }
-div[data-testid="stProgressBar"] > div > div {
+div[data-testid="stProgressBar"] > div > div,
+div[data-testid="stProgressBar"] [role="progressbar"] > div {
     background: #1a7f37 !important;
+    background-color: #1a7f37 !important;
     border-radius: 3px !important;
 }
 
-/* Data editor / dataframe wrapper — light background behind the canvas */
+/* Data editor / dataframe wrapper — invert dark canvas to light for hosted deployment */
 [data-testid="stDataFrame"], [data-testid="stDataEditor"] {
     background-color: #f6f8fa !important;
+    filter: invert(1) hue-rotate(180deg) !important;
 }
 
 /* (legacy btn wraps removed — topbar handles download now) */
