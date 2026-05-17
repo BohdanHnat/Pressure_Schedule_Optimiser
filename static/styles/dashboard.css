@@ -122,10 +122,9 @@ div[data-testid="stProgressBar"] [role="progressbar"] > div {
     border-radius: 3px !important;
 }
 
-/* Data editor / dataframe wrapper — invert dark canvas to light for hosted deployment */
+/* Data editor / dataframe wrapper — light background behind the canvas */
 [data-testid="stDataFrame"], [data-testid="stDataEditor"] {
     background-color: #f6f8fa !important;
-    filter: invert(1) hue-rotate(180deg) !important;
 }
 
 /* (legacy btn wraps removed — topbar handles download now) */
@@ -553,28 +552,3 @@ div[data-testid="stProgress"] ~ .stElementContainer div {
     color: #24292f !important;
 }
 
-/* ── Theme toggle button — fixed to the right edge of the header bar ───────── */
-.stElementContainer.st-key-theme_toggle_btn {
-    position: fixed !important;
-    top: 11px !important;
-    right: 1.2rem !important;
-    z-index: 1001 !important;
-    margin: 0 !important;
-    width: auto !important;
-}
-.stElementContainer.st-key-theme_toggle_btn button {
-    font-family: monospace !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    border-radius: 6px !important;
-    background: rgba(246,248,250,0.92) !important;
-    border: 1.5px solid #d0d7de !important;
-    color: #57606a !important;
-    white-space: nowrap !important;
-    letter-spacing: 0.3px !important;
-}
-.stElementContainer.st-key-theme_toggle_btn button p {
-    color: #57606a !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-}

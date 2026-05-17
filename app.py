@@ -50,136 +50,13 @@ from ui.pressure_map import render_pressure_map
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
 
-def _dark_theme_css() -> str:
-    """Return CSS that overrides the light-theme base to restore full dark styling."""
-    return """
-/* ══ Dark theme overrides ══════════════════════════════════════════════════ */
-html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"],
-.stApp, [data-testid="stMain"], [data-testid="stMainBlockContainer"] {
-    background-color: #0d1117 !important; color: #e6edf3 !important;
-}
-[data-testid="stSidebar"], [data-testid="collapsedControl"] {
-    background-color: #161b22 !important;
-}
-hr { border-color: #21262d !important; }
-.thin-divider { border-top-color: #21262d !important; }
-p, label, .stMarkdown p, [data-testid="stCaptionContainer"] p,
-[data-testid="stText"], .stCaption { color: #c9d1d9 !important; }
-h1,h2,h3,h4,h5,h6, .stMarkdown h1,.stMarkdown h2,.stMarkdown h3 {
-    color: #e6edf3 !important;
-}
-[data-testid="stDataFrame"], [data-testid="stDataEditor"] {
-    background-color: #161b22 !important;
-    filter: invert(1) hue-rotate(180deg) !important;
-}
-[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"] {
-    border-color: #388bfd !important;
-}
-[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"]::before {
-    color: #388bfd !important;
-}
-.upload-hint { color: #a8b1ba !important; }
-[data-testid="stBaseButton-primary"]:disabled,
-[data-testid="stBaseButton-primary"][disabled] { color: #484f58 !important; }
-div[data-testid="stProgressBar"] > div {
-    background: #21262d !important;
-    border: 1.5px solid #30363d !important;
-    border-radius: 4px !important;
-}
-div[data-testid="stProgressBar"] > div > div { background: #1a7f37 !important; }
-.section-heading { color: #e6edf3 !important; }
-.section-caption { color: #c9d1d9 !important; border-left-color: #388bfd !important; }
-.upload-hint { color: #c9d1d9 !important; }
-.alt-entry-label { color: #e3b341 !important; border-color: #4a3a10 !important; }
-.fixed-station-header {
-    background: #0d1117 !important; border-bottom-color: #21262d !important;
-}
-.station-header { color: #e6edf3 !important; }
-.station-subtitle { color: #8b949e !important; }
-.input-warning { color: #e3b341 !important; border-color: #4a3a10 !important; }
-.input-ready { color: #3fb950 !important; border-color: #1a7f37 !important; }
-.csv-loaded-notice {
-    color: #3fb950 !important; border-color: #238636 !important;
-    background: rgba(35,134,54,0.18) !important;
-}
-[data-testid="stMainBlockContainer"]
-    [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] .section-heading)
-    > [data-testid="stColumn"]:first-child {
-    background: rgba(20,60,120,0.45) !important;
-    border-color: rgba(56,139,253,0.35) !important;
-}
-[data-testid="stMainBlockContainer"]
-    [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] .section-heading)
-    > [data-testid="stColumn"]:last-child {
-    background: rgba(100,65,10,0.45) !important;
-    border-color: rgba(210,153,34,0.35) !important;
-}
-.progress-header { color: #e6edf3 !important; }
-.progress-step { border-color: #21262d !important; background: rgba(22,27,34,0.8) !important; }
-.progress-step-pending { border-color: #21262d !important; }
-.progress-step-running {
-    border-color: #d29922 !important; background: rgba(50,40,10,0.6) !important;
-    box-shadow: 0 0 16px rgba(210,153,34,0.35) !important;
-}
-.progress-step-done {
-    border-color: #3fb950 !important; background: rgba(20,50,25,0.5) !important;
-}
-.progress-step-title { color: #e6edf3 !important; }
-.progress-step-desc { color: #c9d1d9 !important; }
-.step-bullets li { color: #c9d1d9 !important; }
-.step-detail { color: #58a6ff !important; background: rgba(88,166,255,0.08) !important; }
-.step-indicator-pending { border-color: #484f58 !important; color: #484f58 !important; }
-.step-indicator-running { border-color: #d29922 !important; }
-.step-indicator-done { border-color: #3fb950 !important; }
-.stepper-arrow-inline { color: #484f58 !important; }
-.stElementContainer:has(.tb-empty) + .stElementContainer [data-testid="stBaseButton-secondary"] {
-    background: #161b22 !important; border-color: #30363d !important; color: #484f58 !important;
-}
-.stElementContainer:has(.tb-empty) + .stElementContainer [data-testid="stBaseButton-secondary"] p {
-    color: #484f58 !important;
-}
-.stElementContainer:has(.tb-current) + .stElementContainer [data-testid="stBaseButton-secondary"] {
-    background: rgba(210,153,34,0.2) !important;
-    border-color: #d29922 !important; color: #e3b341 !important;
-}
-.stElementContainer:has(.tb-current) + .stElementContainer [data-testid="stBaseButton-secondary"] p {
-    color: #e3b341 !important;
-}
-[data-testid="stDownloadButton"] button {
-    background: rgba(56,139,253,0.1) !important;
-    border-color: #388bfd !important; color: #58a6ff !important;
-}
-[data-testid="stDownloadButton"] button p { color: #58a6ff !important; }
-.side-metric-card { background: rgba(22,27,34,0.8) !important; border-color: #21262d !important; }
-.side-metric-label { color: #8b949e !important; }
-.side-metric-value { color: #e6edf3 !important; }
-.side-metric-value.positive { color: #3fb950 !important; }
-.map-section-header { color: #e6edf3 !important; }
-.map-info-bar { background: rgba(22,27,34,0.8) !important; border-color: #21262d !important; }
-.map-info-bar-label { color: #8b949e !important; }
-.map-info-bar-hour { color: #58a6ff !important; }
-.map-info-bar-value { color: #3fb950 !important; }
-.legend-h-text { color: #e6edf3 !important; }
-.legend-h-dot.dot-red { background: #f85149 !important; }
-.legend-h-dot.dot-green { background: #3fb950 !important; }
-.legend-h-dot.dot-yellow { background: #d29922 !important; }
-.page-footer { color: #8b949e !important; border-top-color: #21262d !important; }
-.stElementContainer.st-key-theme_toggle_btn button {
-    background: rgba(22,27,34,0.9) !important;
-    border-color: #30363d !important; color: #c9d1d9 !important;
-}
-.stElementContainer.st-key-theme_toggle_btn button p { color: #c9d1d9 !important; }
-"""
-
-
 def _load_css():
-    """Load base (light-theme) CSS then inject dark overrides if dark theme is active."""
+    """Load the light-theme CSS stylesheet."""
     css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             "static", "styles", "dashboard.css")
     with open(css_path) as f:
         base_css = f.read()
-    dark_css = _dark_theme_css() if st.session_state.get("theme", "light") == "dark" else ""
-    st.markdown(f"<style>{base_css}{dark_css}</style>", unsafe_allow_html=True)
+    st.markdown(f"<style>{base_css}</style>", unsafe_allow_html=True)
 
 _load_css()
 
@@ -212,7 +89,6 @@ _SS_DEFAULTS = {
     "planned_pressure": None,      # pd.DataFrame (24 rows)
     "results":          None,      # PipelineResult from pipeline
     "opt_complete":     False,     # True after optimisation finishes
-    "theme":            "light",   # "light" | "dark"
 }
 for k, v in _SS_DEFAULTS.items():
     if k not in st.session_state:
@@ -714,12 +590,10 @@ def render_results_view():
 
     _render_topbar("results", csv_bytes=csv_bytes)
 
-    _theme = st.session_state.get("theme", "light")
-
     # Comparison chart (90%) + side metrics (10%)
     col_chart, col_metrics = st.columns([9.5, 0.7])
     with col_chart:
-        render_comparison_chart(results, theme=_theme)
+        render_comparison_chart(results)
     with col_metrics:
         st.markdown(
             f"""
@@ -762,7 +636,7 @@ def render_results_view():
         unsafe_allow_html=True,
     )
     if results.wn is not None and results.node_pressures_ga:
-        render_pressure_map(results, theme=_theme)
+        render_pressure_map(results)
     else:
         st.info("Pressure map data unavailable — check EPANET model file.")
 
@@ -819,14 +693,6 @@ def main():
 
     # Fixed header shown on all views
     _render_fixed_header()
-
-    # Theme toggle — CSS positions this fixed to the top-right of the header bar.
-    # Renders on every view; clicking flips session_state.theme and reruns.
-    _theme = st.session_state.get("theme", "light")
-    _btn_label = "To Dark Theme" if _theme == "light" else "To Light Theme"
-    if st.button(_btn_label, key="theme_toggle_btn"):
-        st.session_state.theme = "dark" if _theme == "light" else "light"
-        st.rerun()
 
     # DOM flush guard for the progress view.
     # NOTE: Streamlit — when navigating to "progress" for a new run, one empty rerun
