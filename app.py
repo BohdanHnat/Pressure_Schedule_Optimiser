@@ -358,7 +358,7 @@ _STEPS = [
             "<li>Loading today's forecasted demand data and simulating water "
             "consumption across consumers</li>"
             "<li>Calculating actual pressures at consumer endpoints accounting "
-            "for network pressure losses (Hazen-Williams head loss formula)</li>"
+            "for network pressure losses</li>"
             "</ul>"
         ),
     ),
