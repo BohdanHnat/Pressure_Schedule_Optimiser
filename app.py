@@ -393,7 +393,7 @@ _STEPS = [
             "Efficiency Point (BEP)</li>"
             "<li style='padding: 0.15em 0;'>&#8212; Demand-following: matching the pressure schedule to forecasted hourly demand</li>"
             "</ul></li>"
-            "<li>Selecting the best-performing schedule across all three criteria</li>"
+            "<li>Selecting the best-performing schedule across all four criteria</li>"
             "<li>Calculating total pump energy consumption under the optimised pressure "
             "schedule via hydraulic simulation</li>"
             "</ul>"
