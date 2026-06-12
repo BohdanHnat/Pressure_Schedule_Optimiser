@@ -11,28 +11,6 @@ Architecture references:
 import os, sys, types
 import numpy as np
 
-# wntr 1.4.0 contains two C extensions with no Python 3.13+ wheels:
-#
-#   wntr/sim/aml/_evaluator.so          — Cython AML evaluator
-#   wntr/sim/network_isolation/          — C++ network isolation checker
-#       _network_isolation.so
-#
-# Both are loaded exclusively by wntr.sim.core (which defines WNTRSimulator).
-# We only ever call EpanetSimulator; WNTRSimulator is never used.
-#
-# Fix strategy — stub three modules before `import wntr` runs:
-#
-#   1. wntr.sim.aml._evaluator   — the Cython C extension itself
-#   2. wntr.sim.aml.evaluator    — the Python wrapper; its Evaluator class uses
-#                                   _evaluator symbols at definition time, so we
-#                                   pre-supply a no-op Evaluator class instead
-#   3. wntr.sim.core             — the file that imports both broken extensions;
-#                                   we replace it with the two stub classes that
-#                                   the rest of wntr's import chain requires
-#                                   (WaterNetworkSimulator, WNTRSimulator)
-#
-# sys.modules.setdefault() inserts only when the key is absent, so Python 3.12
-# and below are completely unaffected — the real extensions load there as normal.
 if sys.version_info >= (3, 13):
     _M = types.ModuleType
 
