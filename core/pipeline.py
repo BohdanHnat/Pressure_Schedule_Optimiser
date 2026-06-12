@@ -15,14 +15,6 @@ Baseline comparison logic:
   E_planned_kWh — EPANET simulation of operator's planned pressure schedule
                   with SARIMAX demand forecast.
   Reported saving = E_planned_kWh − E_ga_kWh.
-
-OOP design note:
-  PipelineResult replaces the original 15-key return dictionary. Attribute access
-  (result.saving_pct) is clearer than dictionary access (result["saving_pct"]) and
-  makes the full result structure explicit and self-documenting.
-
-  Pipeline replaces the original single 120-line run_full_pipeline() function.
-  Each stage is a clearly named method, making the sequence easy to follow.
 """
 import os, sys
 import numpy as np
@@ -42,12 +34,7 @@ from core.optimisation import (
 
 @dataclass
 class PipelineResult:
-    """
-    Typed container for all pipeline outputs.
-
-    Using a dataclass (instead of a plain dict) gives attribute access,
-    IDE autocomplete, and an explicit record of every result field.
-    """
+    """Typed container for all pipeline outputs."""
     Q_forecast: np.ndarray = None
     ga_schedule: np.ndarray = None
     planned_pressure: np.ndarray = None
@@ -104,13 +91,7 @@ def _network_metadata(wn) -> dict:
 
 
 class Pipeline:
-    """
-    Runs the full daily optimisation pipeline as a sequence of named stages.
-
-    Using a class (instead of one long function) makes each stage a clearly
-    named method and stores intermediate values as instance attributes,
-    avoiding a tangle of local variables passed between code blocks.
-    """
+    """Runs the full daily optimisation pipeline as a sequence of named stages."""
 
     def __init__(self, demand_df, pressure_df):
         self.demand_df = demand_df
@@ -128,11 +109,6 @@ class Pipeline:
         progress_bar  : Streamlit progress bar widget, or None.
         status_text   : Streamlit empty() text placeholder, or None.
         step_callback : callable(step_index, status_string) — for live UI updates.
-
-        NOTE: Streamlit — step_callback is called from within this blocking function
-        to update the progress list in app.py via st.empty() containers. This is the
-        only way to push live status updates from a long-running computation to the
-        Streamlit UI. There is no simpler alternative within Streamlit's execution model.
         """
         self._stage1_read_input(progress_bar, status_text, step_callback)
         self._stage2_update_window(progress_bar, status_text, step_callback)

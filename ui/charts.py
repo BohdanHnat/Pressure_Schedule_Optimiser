@@ -5,10 +5,6 @@ ui/charts.py — Dual-axis comparison chart.
   Right Y — Pressure (bar): blue=planned, green=GA — lower portion
 
   Legend order: Suggested, Planned, Forecast
-
-NOTE: The go.Figure() / add_trace() / update_layout() calls are the Plotly
-library's API for building an interactive chart. There is no simpler alternative
-using Plotly — each parameter directly specifies one visual property.
 """
 import numpy as np
 import plotly.graph_objects as go

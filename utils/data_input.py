@@ -10,13 +10,8 @@ Two input modes:
   a) CSV upload — first column timestamps, second column values.
   b) Manual 24-row table — 4-column layout (12 rows × 2 pairs).
 
-Table height is configured so all 24 hours are visible without internal scrolling.
-
-OOP design note:
-  The original file had two nearly-identical ~150-line functions. The shared logic
-  is now in the DataSection base class. DemandSection and PressureSection override
-  only the three methods that differ: _build_df, _column_config, _build_df_from_manual.
-  This removes ~90% code duplication while keeping all Streamlit functionality intact.
+Shared logic lives in the DataSection base class; DemandSection and
+PressureSection override _build_df, _column_config, and _build_df_from_manual.
 """
 
 import pandas as pd
@@ -40,9 +35,8 @@ def _build_consumption_df(values: np.ndarray,
     If timestamps are not provided (manual entry) — uses a fixed anchor
     2026-01-29 00:00–23:00 (day after the end of the initial historical window).
 
-    Timestamps from CSV are passed directly to rolling_window without regeneration,
-    allowing the positional duplicate guard in update_rolling_window() to correctly
-    remove the previous entry for the same day on each re-run with the same file.
+    Timestamps from CSV are passed through unchanged so the duplicate guard in
+    update_rolling_window() can detect a re-upload of the same day.
     """
     if timestamps is None:
         timestamps = pd.date_range(start=pd.Timestamp("2026-01-29"), periods=24, freq="h")
@@ -92,9 +86,6 @@ class DataSection:
                 unsafe_allow_html=True,
             )
         with col_up:
-            # NOTE: Streamlit — label_visibility="collapsed" hides the label text.
-            # file_uploader returns None when no file is selected, or a file-like object.
-            # These are Streamlit-specific API behaviours with no plain-Python equivalent.
             uploaded = st.file_uploader(
                 f"{self.upload_key}_label",
                 type="csv",
@@ -105,10 +96,8 @@ class DataSection:
         if uploaded:
             return self._parse_csv(uploaded)
 
-        # If the uploader is empty but data exists from a previous run (back-navigation),
-        # display the stored file info and return the saved DataFrame.
-        # NOTE: Streamlit — st.session_state persists values across reruns. After navigating
-        # away and back, the file_uploader resets to None, but session_state retains the data.
+        # After back-navigation the file_uploader resets to None but
+        # session_state still holds the data — show it instead of an empty table.
         if st.session_state.get(self.session_key) is not None:
             self._show_back_nav_notice()
             return st.session_state[self.session_key], True
@@ -186,9 +175,6 @@ class DataSection:
             self.col2_name: [None] * 12,
         })
 
-        # NOTE: Streamlit — st.data_editor with column_config controls column editability,
-        # numeric range, and display format. These are Streamlit-specific parameters
-        # with no plain-Python equivalent.
         edited = st.data_editor(
             init_df,
             width="stretch",

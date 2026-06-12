@@ -2,20 +2,8 @@
 ui/pressure_map.py — EPANET network on OpenStreetMap tiles.
 
 Only CONSUMER nodes (non-zero base demand) are shown on the map.
-Discrete 3-zone colouring: RED / GREEN / YELLOW / RED.
+Discrete zone colouring: RED / GREEN / YELLOW / RED.
 Pipe connections drawn as thin lines matching the EPANET model.
-
-OOP design note:
-  NetworkGeometry replaces the original _get_network_geometry() function which
-  returned a plain dictionary with 11 keys. The dataclass makes the structure
-  explicit, gives attribute access (geom.consumer_x vs geom["consumer_x"]),
-  and co-locates the extraction logic with the data it produces via a
-  @classmethod factory method.
-
-  The Plotly figure construction in _render_mapbox() and _render_scatter()
-  cannot be simplified — every go.Scattermapbox() call is a direct specification
-  of what Plotly renders. There is no shorter way to produce an interactive
-  geographic map with coloured markers using Plotly's API.
 """
 import plotly.graph_objects as go
 import streamlit as st
@@ -60,12 +48,8 @@ def _pressure_color(p: float) -> str:
 
 @dataclass
 class NetworkGeometry:
-    """
-    Holds all geometric data extracted from a WNTR water network model.
-
-    Constructed via NetworkGeometry.from_water_network(wn) rather than
-    directly, since extraction requires iterating the WNTR model object.
-    """
+    """Geometric data extracted from a WNTR water network model;
+    construct via NetworkGeometry.from_water_network(wn)."""
     consumer_x: list = field(default_factory=list)
     consumer_y: list = field(default_factory=list)
     consumer_names: list = field(default_factory=list)
@@ -156,8 +140,6 @@ def render_pressure_map(results, theme: str = "light") -> None:
 
     geom = NetworkGeometry.from_water_network(wn)
 
-    # NOTE: Streamlit — st.slider returns the current value on every rerun.
-    # The slider widget is Streamlit-specific; no plain-Python equivalent.
     hour = st.slider(
         "Select hour:",
         min_value=0, max_value=23, value=8, step=1,
@@ -225,14 +207,7 @@ def render_pressure_map(results, theme: str = "light") -> None:
 
 def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
                    lons, lats, avg_lon, avg_lat, theme: str = "light"):
-    """
-    Render on OpenStreetMap tiles using Plotly Scattermapbox.
-
-    NOTE: The go.Figure() / add_trace() / update_layout() calls below are the
-    Plotly library's API for building an interactive geographic map. There is no
-    shorter way to produce this output using Plotly — each parameter specifies
-    exactly one visual property of the rendered figure.
-    """
+    """Render on OpenStreetMap tiles using Plotly Scattermapbox."""
     t = _MAP_THEME.get(theme, _MAP_THEME["light"])
     fig = go.Figure()
 
@@ -339,12 +314,7 @@ def _render_mapbox(geom: NetworkGeometry, node_colors, hover_texts,
 
 
 def _render_scatter(geom: NetworkGeometry, node_colors, hover_texts, theme: str = "light"):
-    """
-    Fallback renderer using plain Plotly Scatter (local/non-geographic coordinates).
-
-    NOTE: Same Plotly API constraints apply here as in _render_mapbox — the
-    go.Scatter() calls are direct Plotly specifications with no simpler alternative.
-    """
+    """Fallback renderer using plain Plotly Scatter (local/non-geographic coordinates)."""
     t = _MAP_THEME.get(theme, _MAP_THEME["light"])
     fig = go.Figure()
 

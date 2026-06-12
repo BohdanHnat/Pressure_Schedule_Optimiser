@@ -7,22 +7,17 @@ Entry point. Run with:
 
 Then open http://localhost:8501 in a browser.
 
-Prerequisite:
-  Run prepare_window.py once (offline) to generate:
-    data_files/sarimax_historical_window.csv
+Built-in data files (bundled with the app):
+  networks/Station_Model.inp           — EPANET hydraulic model
+  data_files/Sarimax_Historical_Window.csv — SARIMAX historical window
 
 Three dashboard views:
   View 1 — Data Input: demand + planned pressure side-by-side
   View 2 — Optimisation Progress: step list + progress bar
   View 3 — Results: comparison chart + pressure map + metrics
 
-NOTE on Streamlit's execution model:
-  Streamlit re-executes this entire script from line 1 on every user interaction
-  (button click, file upload, slider move). Ordinary Python variables do not
-  survive between interactions — persistent state must be stored in st.session_state.
-  This is not a design choice; it is a fundamental constraint of the framework.
-  Comments marked "NOTE: Streamlit" throughout this file identify patterns that
-  exist because of this constraint and cannot be simplified further.
+Streamlit re-executes this script on every user interaction, so all
+persistent state lives in st.session_state.
 """
 
 import os, sys
@@ -63,14 +58,7 @@ _load_css()
 
 
 def _enforce_light_backgrounds():
-    """
-    Override Streamlit Cloud's dynamically injected dark-mode inline background
-    styles.  Streamlit's JavaScript sets background-color as an inline !important
-    style on html/body after our CSS loads, which stylesheet !important cannot
-    beat.  A component iframe reaching window.parent can call setProperty with
-    'important' to win that race.  Multiple delayed calls catch the full sequence
-    of Streamlit's theme-setup callbacks.
-    """
+    """Override Streamlit Cloud's injected dark-mode inline background styles."""
     _components.html(
         """<script>
 (function(){
@@ -117,8 +105,6 @@ def _render_fixed_header():
 
 # ── Session state initialisation ──────────────────────────────────────────────
 
-# NOTE: Streamlit — session_state is the only persistence mechanism across reruns.
-# This block initialises keys with defaults on the very first run of the session.
 _SS_DEFAULTS = {
     "view":             "input",   # "input" | "progress" | "results"
     "last_day_demand":  None,      # pd.DataFrame (24 rows)
@@ -147,10 +133,8 @@ def _render_topbar(current_view: str, csv_bytes: bytes = None,
       "ready"        — input is ready; clicking starts a new optimisation run
       "empty"        — step is not yet reachable (button disabled)
 
-    NOTE: Streamlit — the CSS class wrappers (<div class='tb-filled'> etc.) apply
-    colour coding to the buttons via the dashboard.css file. Streamlit does not
-    expose a native API for styling individual buttons differently, so this HTML
-    injection is the standard Streamlit workaround for per-button styling.
+    The CSS class wrappers (<div class='tb-filled'> etc.) colour individual
+    buttons via dashboard.css, since Streamlit has no per-button styling API.
     """
     has_results = st.session_state.results is not None
     opt_done    = st.session_state.opt_complete
@@ -243,9 +227,8 @@ def render_input_view():
     Data input view: demand section (left) and pressure section (right).
     The Step 2 topbar button becomes clickable when both inputs are ready.
     """
-    # Use previous-run input_ready for the topbar to avoid a one-frame flicker
-    # NOTE: Streamlit — the topbar renders before widget values are read this run,
-    # so we store the ready-state in session_state and use it one run later.
+    # The topbar renders before widget values are read this run, so use the
+    # ready-state stored on the previous run to avoid a one-frame flicker.
     prev_ready = st.session_state.get("_input_ready", False)
     _render_topbar("input", input_ready=prev_ready)
 
@@ -262,7 +245,6 @@ def render_input_view():
         st.session_state["_pending_pressure"] = pressure_df
 
     # Detect whether the current input differs from the data used for the last run.
-    # df.equals() is a direct pandas comparison — no hashing needed.
     input_changed = False
     if both_ready and st.session_state.opt_complete:
         d = st.session_state.last_day_demand
@@ -273,8 +255,7 @@ def render_input_view():
     st.session_state["_input_changed"] = input_changed
     st.session_state["_input_ready"]   = both_ready
 
-    # NOTE: Streamlit — trigger a rerun when ready/changed state flips so the
-    # topbar updates its button states immediately, not one interaction later.
+    # Rerun when ready/changed state flips so the topbar updates immediately.
     if both_ready != prev_ready or input_changed != prev_changed:
         st.rerun()
 
@@ -499,13 +480,12 @@ def render_progress_view(topbar_already=False):
                if not os.path.exists(f)]
     if missing:
         st.error(f"Missing files: {', '.join(missing)}")
-        st.info("Run prepare_window.py first to generate required data files.")
+        st.info("These files are bundled with the app in networks/ and data_files/ — "
+                "check the deployment includes them.")
         return
 
-    # NOTE: Streamlit — st.empty() creates a single-slot container that can be
-    # updated in place. Each step card occupies one container so _refresh_steps()
-    # can rewrite individual cards without re-rendering the whole page.
-    # This is the only way Streamlit supports live UI updates from a blocking function.
+    # Each step card lives in its own st.empty() container so _refresh_steps()
+    # can rewrite individual cards in place during the blocking pipeline run.
     step_containers = [st.empty() for _ in range(len(_STEPS))]
     progress_bar    = st.progress(0.0)
     pct_text        = st.empty()
@@ -687,11 +667,6 @@ def _render_hourly_pressure_table(results):
     """
     Display a horizontal 2-row × 24-column comparison table: planned vs optimised pressure.
     The optimised row is highlighted green via pandas Styler.
-
-    NOTE: Streamlit — st.dataframe() accepts a pandas Styler object, which allows
-    per-row CSS colour rules. This is simpler than building a raw HTML string but still
-    requires pandas styling rather than plain Python, because Streamlit's native
-    st.dataframe() has no row-colour API of its own.
     """
     hours   = [f"{h:02d}:00" for h in range(24)]
     planned = np.round(results.planned_pressure, 2)
@@ -704,7 +679,6 @@ def _render_hourly_pressure_table(results):
     ).T
 
     def _highlight_ga(row):
-        """Apply green colour to the Optimised row only."""
         if row.name == "Optimised (bar)":
             return ["color: #1a7f37; background-color: rgba(26,127,55,0.1); "
                     "font-weight: bold"] * len(row)
@@ -732,13 +706,9 @@ def main():
     # Override Streamlit Cloud's dark-mode inline background injection
     _enforce_light_backgrounds()
 
-    # DOM flush guard for the progress view.
-    # NOTE: Streamlit — when navigating to "progress" for a new run, one empty rerun
-    # is needed to flush the previous page's widgets from the browser DOM before the
-    # blocking Pipeline.run() call begins. Without this flush, the old DOM (input
-    # page buttons) remains visible while the pipeline computes.
-    # The topbar is rendered above the guard so the browser has a minimal valid
-    # script output to replace the old DOM during the flush rerun.
+    # DOM flush guard: one empty rerun flushes the previous page's widgets from
+    # the browser DOM before the blocking Pipeline.run() call begins; otherwise
+    # the input-page buttons stay visible while the pipeline computes.
     if view == "progress" and not st.session_state.opt_complete:
         _render_topbar("progress")
         if not st.session_state.get("_progress_armed", False):

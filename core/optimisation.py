@@ -1,18 +1,11 @@
 """
 core/optimisation.py
 ====================
-Single-objective GA for Vitruka pump scheduling — adapted from the
-provided GA Optimisation Script (v3 — pymoo).
+Single-objective GA (pymoo) for pumping-station pressure scheduling:
+problem definition, fitness components, and EPANET simulation helpers.
+All tuning constants come from config.py.
 
-All fitness functions, operators, and the VitrukaScheduleProblem class
-are reproduced verbatim from the provided script.  The only additions are:
-
-  1. Constants imported from config (POP_SIZE=80, N_GEN=30 for debug run).
-  2. p_target_to_speed() uses config.ELEV_J2 / ELEV_R1 instead of literals.
-  3. run_ga() accepts an optional Streamlit progress_bar + status_text,
-     updated per generation via StreamlitProgressCallback (pymoo.Callback).
-
-Architecture references (from provided script — unchanged):
+Architecture references:
   Savic & Walters (1997) / Mala-Jetmarova et al. (2017) / Kazimipour et al. (2014)
 """
 import os, sys
@@ -32,7 +25,7 @@ from pymoo.termination import get_termination
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config as C
 
-# ── EPANET helpers (unchanged from provided script) ──────────────────────────
+# ── EPANET helpers ────────────────────────────────────────────────────────────
 
 def p_target_to_speed(p_bar: float) -> float:
     """P_target (bar, gauge at J2) → VFD speed ratio.  Affinity law."""
@@ -72,9 +65,10 @@ def load_network(inp_path: str):
                 tbd += d.base_value * 3600.0
     return wn, tbd
 
-# Fitness components
+# ── Fitness components ────────────────────────────────────────────────────────
+
 def epanet_energy(results) -> float:
-    """Total pump energy kWh via EFF curve (identical to provided script)."""
+    """Total pump energy kWh via EFF curve."""
     total = 0.0
     for pid in C.PUMP_IDS:
         flow_ms = results.link["flowrate"][pid].abs()
@@ -94,7 +88,7 @@ def epanet_energy(results) -> float:
 
 
 def loss_pressure(results, wn) -> float:
-    """Regulatory penalty — ДБН В.2.5-74:2013 §6.3.1 (unchanged)."""
+    """Regulatory penalty — ДБН В.2.5-74:2013 §6.3.1."""
     penalty   = 0.0
     pressures = results.node["pressure"]
     for jname in wn.junction_name_list:
@@ -111,7 +105,7 @@ def loss_pressure(results, wn) -> float:
     return penalty
 
 def loss_bep(results, wn) -> float:
-    """BEP deviation — soft secondary penalty (unchanged)."""
+    """BEP deviation — soft secondary penalty."""
     penalty = 0.0
     for pid in C.PUMP_IDS:
         flows = results.link["flowrate"][pid]
@@ -130,7 +124,7 @@ def loss_energy_vs_baseline(E_ga: float, E_baseline: float) -> float:
     return (E_ga - E_baseline) * C.ENERGY_WEIGHT
 
 def loss_overpressure_vs_demand(P_schedule, Q_forecast) -> float:
-    """Demand-proportional overpressure penalty (unchanged)."""
+    """Demand-proportional overpressure penalty."""
     WEIGHT_OVER, WEIGHT_UNDER = 80, 30
     Q_max   = np.max(Q_forecast)
     penalty = 0.0
@@ -150,10 +144,10 @@ def fitness_evaluate(P_schedule, inp_path, Q_forecast, total_base_demand, E_base
     p_d = loss_overpressure_vs_demand(P_schedule, Q_forecast)
     return p_e + p_b + p_d, e, p_p, p_b      # p_p excluded from soft sum
 
-# ── pymoo operators (unchanged from provided script) ─────────────────────────
+# ── pymoo operators ───────────────────────────────────────────────────────────
 
 def compare_winners(pop, P, **kwargs):
-    """Tournament comparison with constraint domination (unchanged)."""
+    """Tournament comparison with constraint domination."""
     S = np.full(P.shape[0], np.nan)
     for i, row in enumerate(P):
         best    = row[0]
@@ -170,7 +164,7 @@ def compare_winners(pop, P, **kwargs):
     return S.astype(int)
 
 class WarmSampling(Sampling):
-    """90% random + 10% warm-seeded (Kazimipour et al., 2014) — unchanged."""
+    """90% random + 10% warm-seeded (Kazimipour et al., 2014)."""
     def _do(self, problem, n_samples, **kwargs):
         pop    = np.random.uniform(C.P_OUTLET_MIN, C.P_OUTLET_MAX, (n_samples, C.N_STEPS))
         n_warm = int(n_samples * C.WARM_FRAC)
@@ -185,12 +179,11 @@ class WarmSampling(Sampling):
             pop[i]   = np.clip(p, C.P_OUTLET_MIN, C.P_OUTLET_MAX)
         return pop
 
-class VitrukaScheduleProblem(Problem):
+class StationScheduleProblem(Problem):
     """
     pymoo single-objective problem with hard pressure constraint.
     F  = soft_total (energy + BEP + overpressure)
     G  = loss_pressure (ДБН compliance; G > 0 → infeasible)
-    Unchanged from provided script.
     """
     def __init__(self, inp_path, Q_forecast, total_base_demand, E_baseline):
         super().__init__(
@@ -216,7 +209,7 @@ class StreamlitProgressCallback(Callback):
     """
     Updates a Streamlit progress bar after each GA generation.
     stage_start / stage_end define the fraction of the 7-stage pipeline
-    bar that this GA stage occupies (e.g. 0.57 → 0.86).
+    bar that this GA stage occupies (e.g. 0.38 → 0.86).
     """
     def __init__(self, bar, status_text, n_gen, stage_start, stage_end):
         super().__init__()
@@ -240,7 +233,7 @@ class StreamlitProgressCallback(Callback):
                 unsafe_allow_html=True,
             )
 
-# Main GA entry point
+# ── Main GA entry point ───────────────────────────────────────────────────────
 
 def run_ga(
     inp_path: str,
@@ -253,11 +246,10 @@ def run_ga(
     stage_end:   float = 0.86,
 ):
     """
-    Run the single-objective GA.
+    Run the single-objective GA (POP_SIZE × N_GEN from config).
     Returns (best_schedule, best_fitness, (E_ga_kWh, pen_pressure, pen_bep)).
-    Debug: POP_SIZE=80, N_GEN=30.
     """
-    problem = VitrukaScheduleProblem(inp_path, Q_forecast, total_base_demand, E_baseline_kWh)
+    problem = StationScheduleProblem(inp_path, Q_forecast, total_base_demand, E_baseline_kWh)
 
     callback = StreamlitProgressCallback(
         progress_bar, status_text, C.N_GEN, stage_start, stage_end
@@ -281,7 +273,6 @@ def run_ga(
         verbose=False,
     )
 
-    # ── Result extraction (unchanged from provided script) ────────────────────
     if res.X is not None:
         best_schedule = res.X
         best_fitness  = res.F[0]
