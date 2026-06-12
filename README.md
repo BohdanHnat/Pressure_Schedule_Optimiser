@@ -1,6 +1,6 @@
 # Municipal Water Pumping Station — Pressure Schedule Optimiser
 
-An AI-driven decision-support dashboard for the operators of a municipal water pumping station (real-world Ukrainian pumping station). The system forecasts the next 24 hours of water demand, then uses a genetic algorithm together with an EPANET hydraulic model based on real-world station topology to suggest an hourly outlet-pressure schedule that consumes less pump energy than the operator's own plan, while maintaining pressure at consumer buildings in the supply network within regulatory pressure limits of **2.5 – 6.0** bar (Government of Ukraine, DBN, 2013).
+An AI-driven decision-support dashboard for the operators of a municipal water pumping station (real-world Ukrainian pumping station). The system forecasts the next 24 hours of water demand, then uses a genetic algorithm together with an EPANET hydraulic model based on real-world station topology to suggest an hourly outlet-pressure schedule that consumes less pump energy than the operator's own plan, while maintaining pressure at consumer buildings in the supply network within regulatory pressure limits of **2.5 – 6.0** bar (Ukrainian Regulatory Limits).
 
 The operator stays in control: the dashboard *suggests* a schedule and quantifies the saving; it does not implement decisions on its own. In the validated demonstration scenario the optimiser achieves an energy saving of ≈**2.3** % relative to the operator's planned schedule.
 
