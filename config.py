@@ -15,7 +15,7 @@ DEMO_INPUTS_DIR = os.path.join(BASE_DIR, "demo_inputs")
 # ── File paths ────────────────────────────────────────────────────────────────
 # Case-sensitive on Streamlit Cloud (Linux) — must match the on-disk names exactly.
 NETWORK_FILE          = os.path.join(NETWORKS_DIR, "Station_Model.inp")
-HISTORICAL_WINDOW_FILE= os.path.join(DATA_DIR, "Sarimax_Historical_Window.csv")
+HISTORICAL_WINDOW_FILE= os.path.join(DATA_DIR, "SARIMAX_Historical_Window.csv")
 
 # ── SARIMAX parameters ────────────────────────────────────────────────────────
 SARIMAX_ORDER          = (1, 0, 1)
