@@ -1,6 +1,6 @@
 # Municipal Water Pumping Station — Pressure Schedule Optimiser
 
-An AI-driven decision-support dashboard for the operators of a municipal water pumping station (the Vitruka station, Zhytomyr, Ukraine). The system forecasts the next 24 hours of water demand, then uses a genetic algorithm together with an EPANET hydraulic model based on real-world station topology to suggest an hourly outlet-pressure schedule that consumes less pump energy than the operator's own plan, while maintaining pressure at consumer buildings in the supply network within regulatory pressure limits of **2.5 – 6.0** bar (Government of Ukraine, DBN, 2013).
+An AI-driven decision-support dashboard for the operators of a municipal water pumping station (real-world Ukrainian pumping station). The system forecasts the next 24 hours of water demand, then uses a genetic algorithm together with an EPANET hydraulic model based on real-world station topology to suggest an hourly outlet-pressure schedule that consumes less pump energy than the operator's own plan, while maintaining pressure at consumer buildings in the supply network within regulatory pressure limits of **2.5 – 6.0** bar (Government of Ukraine, DBN, 2013).
 
 The operator stays in control: the dashboard *suggests* a schedule and quantifies the saving; it does not implement decisions on its own. In the validated demonstration scenario the optimiser achieves an energy saving of ≈**2.3** % relative to the operator's planned schedule.
 
@@ -71,7 +71,7 @@ This release is a **demonstration prototype frozen at a fixed historical date**.
 
 Two further data files are **built into the deployment** (the user does not upload them) and are included in the repository for inspection:
 
-- `networks/Vitruka_Model.inp` — the EPANET 2.2 hydraulic model of the real-world station and its distribution network, used in the optimisation workflow;
+- `networks/Station_Model.inp` — the EPANET 2.2 hydraulic model of the real-world station and its distribution network, used in the optimisation workflow;
 - `data_files/SARIMAX_Historical_Window.csv` — the rolling historical demand window (Aug 2025 – Jan 2026) on which the forecasting model is retrained in the optimisation workflow.
 
 **Live demo:** https://pressure-schedule-optimiser.streamlit.app
@@ -91,7 +91,7 @@ ui/
   charts.py                Demand-and-pressure comparison chart (Plotly)
   pressure_map.py          Network pressure map on OpenStreetMap background (Plotly)
 static/styles/             Dashboard CSS
-networks/Vitruka_Model.inp EPANET model (built into the app)
+networks/Station_Model.inp EPANET model (built into the app)
 data_files/                SARIMAX historical window (built into the app)
 demo_inputs/               Demo CSVs to download and upload into the dashboard
 ```
