@@ -28,11 +28,11 @@ if sys.version_info >= (3, 13):
     # imports never execute; provides the two names the rest of wntr needs.
     _core = _M("wntr.sim.core")
     class _WaterNetworkSimulator:
-        def __init__(self, wn): pass
+        def __init__(self, wn):
+            self._wn = wn  # EpanetSimulator inherits and uses this attribute
+    class _WNTRSimulator(_WaterNetworkSimulator):
         def run_sim(self, *a, **kw):
             raise RuntimeError("WNTRSimulator requires Python ≤ 3.12; use EpanetSimulator.")
-    class _WNTRSimulator(_WaterNetworkSimulator):
-        pass
     _core.WaterNetworkSimulator = _WaterNetworkSimulator
     _core.WNTRSimulator = _WNTRSimulator
     sys.modules.setdefault("wntr.sim.core", _core)
