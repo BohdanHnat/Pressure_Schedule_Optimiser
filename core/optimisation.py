@@ -12,13 +12,23 @@ import os, sys, types
 import numpy as np
 
 # wntr 1.4.0's compiled _evaluator C extension has no wheel for Python 3.13+.
-# We only ever call EpanetSimulator, which does not use _evaluator at all.
-# Pre-populate sys.modules with an empty stub so the `from ._evaluator import *`
-# line in wntr/sim/aml/evaluator.py succeeds without executing C code.
-# setdefault leaves the real extension in place on Python 3.12 and below.
+# We only ever call EpanetSimulator; the AML / WNTRSimulator code path is unused.
+# Two stubs are needed:
+#   1. _evaluator  — the C extension itself (from ._evaluator import * → imports nothing)
+#   2. evaluator   — evaluator.py uses _evaluator symbols inside the Evaluator class
+#                    body, so Evaluator is never defined when _evaluator is empty;
+#                    we pre-supply a no-op Evaluator so aml.py can import it cleanly.
+# setdefault only inserts when the key is absent, so Python 3.12 is unaffected.
 if sys.version_info >= (3, 13):
-    _stub = types.ModuleType("wntr.sim.aml._evaluator")
-    sys.modules.setdefault("wntr.sim.aml._evaluator", _stub)
+    _stub_c = types.ModuleType("wntr.sim.aml._evaluator")
+    sys.modules.setdefault("wntr.sim.aml._evaluator", _stub_c)
+
+    _stub_ev = types.ModuleType("wntr.sim.aml.evaluator")
+    class _EvaluatorStub:
+        """No-op stand-in for the Cython Evaluator (WNTRSimulator path only)."""
+        def __init__(self, *args, **kwargs): pass
+    _stub_ev.Evaluator = _EvaluatorStub
+    sys.modules.setdefault("wntr.sim.aml.evaluator", _stub_ev)
 
 import wntr
 
