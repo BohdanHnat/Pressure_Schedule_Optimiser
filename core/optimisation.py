@@ -11,24 +11,53 @@ Architecture references:
 import os, sys, types
 import numpy as np
 
-# wntr 1.4.0's compiled _evaluator C extension has no wheel for Python 3.13+.
-# We only ever call EpanetSimulator; the AML / WNTRSimulator code path is unused.
-# Two stubs are needed:
-#   1. _evaluator  — the C extension itself (from ._evaluator import * → imports nothing)
-#   2. evaluator   — evaluator.py uses _evaluator symbols inside the Evaluator class
-#                    body, so Evaluator is never defined when _evaluator is empty;
-#                    we pre-supply a no-op Evaluator so aml.py can import it cleanly.
-# setdefault only inserts when the key is absent, so Python 3.12 is unaffected.
+# wntr 1.4.0 contains two C extensions with no Python 3.13+ wheels:
+#
+#   wntr/sim/aml/_evaluator.so          — Cython AML evaluator
+#   wntr/sim/network_isolation/          — C++ network isolation checker
+#       _network_isolation.so
+#
+# Both are loaded exclusively by wntr.sim.core (which defines WNTRSimulator).
+# We only ever call EpanetSimulator; WNTRSimulator is never used.
+#
+# Fix strategy — stub three modules before `import wntr` runs:
+#
+#   1. wntr.sim.aml._evaluator   — the Cython C extension itself
+#   2. wntr.sim.aml.evaluator    — the Python wrapper; its Evaluator class uses
+#                                   _evaluator symbols at definition time, so we
+#                                   pre-supply a no-op Evaluator class instead
+#   3. wntr.sim.core             — the file that imports both broken extensions;
+#                                   we replace it with the two stub classes that
+#                                   the rest of wntr's import chain requires
+#                                   (WaterNetworkSimulator, WNTRSimulator)
+#
+# sys.modules.setdefault() inserts only when the key is absent, so Python 3.12
+# and below are completely unaffected — the real extensions load there as normal.
 if sys.version_info >= (3, 13):
-    _stub_c = types.ModuleType("wntr.sim.aml._evaluator")
-    sys.modules.setdefault("wntr.sim.aml._evaluator", _stub_c)
+    _M = types.ModuleType
 
-    _stub_ev = types.ModuleType("wntr.sim.aml.evaluator")
+    # Stub 1: bare C extension
+    sys.modules.setdefault("wntr.sim.aml._evaluator", _M("wntr.sim.aml._evaluator"))
+
+    # Stub 2: Python wrapper around the C extension
+    _ev = _M("wntr.sim.aml.evaluator")
     class _EvaluatorStub:
-        """No-op stand-in for the Cython Evaluator (WNTRSimulator path only)."""
-        def __init__(self, *args, **kwargs): pass
-    _stub_ev.Evaluator = _EvaluatorStub
-    sys.modules.setdefault("wntr.sim.aml.evaluator", _stub_ev)
+        def __init__(self, *a, **kw): pass
+    _ev.Evaluator = _EvaluatorStub
+    sys.modules.setdefault("wntr.sim.aml.evaluator", _ev)
+
+    # Stub 3: wntr.sim.core — replaced entirely so its two broken C-extension
+    # imports never execute; provides the two names the rest of wntr needs.
+    _core = _M("wntr.sim.core")
+    class _WaterNetworkSimulator:
+        def __init__(self, wn): pass
+        def run_sim(self, *a, **kw):
+            raise RuntimeError("WNTRSimulator requires Python ≤ 3.12; use EpanetSimulator.")
+    class _WNTRSimulator(_WaterNetworkSimulator):
+        pass
+    _core.WaterNetworkSimulator = _WaterNetworkSimulator
+    _core.WNTRSimulator = _WNTRSimulator
+    sys.modules.setdefault("wntr.sim.core", _core)
 
 import wntr
 
