@@ -8,8 +8,18 @@ All tuning constants come from config.py.
 Architecture references:
   Savic & Walters (1997) / Mala-Jetmarova et al. (2017) / Kazimipour et al. (2014)
 """
-import os, sys
+import os, sys, types
 import numpy as np
+
+# wntr 1.4.0's compiled _evaluator C extension has no wheel for Python 3.13+.
+# We only ever call EpanetSimulator, which does not use _evaluator at all.
+# Pre-populate sys.modules with an empty stub so the `from ._evaluator import *`
+# line in wntr/sim/aml/evaluator.py succeeds without executing C code.
+# setdefault leaves the real extension in place on Python 3.12 and below.
+if sys.version_info >= (3, 13):
+    _stub = types.ModuleType("wntr.sim.aml._evaluator")
+    sys.modules.setdefault("wntr.sim.aml._evaluator", _stub)
+
 import wntr
 
 from pymoo.algorithms.soo.nonconvex.ga import GA
